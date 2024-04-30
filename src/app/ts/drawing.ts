@@ -26,4 +26,4 @@ export default function drawOnCanvas(draw: Brush, lastPosition: { x: number, y: 
 
     ctx.stroke();
     setLastPosition(draw.cursorPos);
-  }
+  } 

@@ -1,4 +1,4 @@
-import Brush from "../../brush";
+import Brush from "../../ts/brush";
 
 interface UtilsProps {
     data: Brush;

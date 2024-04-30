@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Brush from "./brush"
+import Brush from "./ts/brush"
 
 export default function useMouseHandlers() {
   const [leftClick, setLeftClick] = useState(false);
