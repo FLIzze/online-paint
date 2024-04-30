@@ -2,8 +2,9 @@
 
 import { useEffect } from "react";
 import Utils from "./components/utils/page";
-import useMouseHandlers from "./mouseMove";
+import useMouseHandlers from "./ts/mouseMove";
 import drawOnCanvas from "./ts/drawing";
+import shortcuts from "./ts/shortcurts";
 
 export default function Home() {
   const width = 800;
@@ -15,6 +16,18 @@ export default function Home() {
       drawOnCanvas(draw, lastPosition, setLastPosition);
     }
   }, [draw, leftClick, lastPosition]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      shortcuts(e, setDraw);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [setDraw]);
 
   return (
     <div className="h-screen">

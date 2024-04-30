@@ -6,7 +6,24 @@ interface UtilsProps {
 }
 
 export default function Utils({ data, setDraw }: UtilsProps) {
-    const colors = ['red', 'blue', 'green', 'yellow', 'black', 'white']
+    const colors = ['red', 'blue', 'green', 'yellow', 'black', 'white'];
+    const utils = ['brush', 'eraser', 'bucket']
+
+    function handleToolClick(util: string) {
+        switch(util) {
+            case 'brush':
+                brush();
+                break;
+            case 'eraser':
+                eraser();
+                break;
+            case 'bucket':
+                bucket();
+                break;
+            default:
+                console.error(`Unknown tool: ${util}`);
+        }
+    }
 
     function colorFocus(color: string) {
         setDraw(prevDraw => ({ ...prevDraw, color: color }));
@@ -24,7 +41,7 @@ export default function Utils({ data, setDraw }: UtilsProps) {
         setDraw(prevDraw => ({ ...prevDraw, tool: 'eraser', toolImg: '/eraser.png' }));
     }
 
-    function fill() {
+    function bucket() {
         setDraw(prevDraw => ({ ...prevDraw, tool: 'fill', toolImg: '/bucket.png' }));
     }
 
@@ -60,33 +77,20 @@ export default function Utils({ data, setDraw }: UtilsProps) {
                 placeholder={data.brushSize.toString()}
             />
             <div className="flex align-middle">
-                <button
-                    className="mr-10"
-                    onClick={brush}>
-                    <img
-                        src="/brush.png"
-                        alt="brush"
-                        className="w-7 h-7"
-                    />
-                </button>
-                <button
-                    className="mr-10"
-                    onClick={eraser}>
-                    <img
-                        src="/eraser.png"
-                        alt="eraser"
-                        className="w-7 h-7"
-                    />
-                </button>
-                <button
-                    className="mr-10"
-                    onClick={fill}>
-                    <img
-                        src="/bucket.png"
-                        alt="bucket"
-                        className="w-7 h-7"
-                    />
-                </button>
+                {utils.map((util, index) => (
+                    <div key={index}>
+                        <button
+                            className="mr-10"
+                            onClick={() => handleToolClick(util)}>
+                            <img
+                                src={`/${util}.png`}
+                                alt={util}
+                                className="w-7 h-7"
+                                title={`${util} [${util[0]}]`}
+                            />
+                        </button>
+                    </div>
+                ))}
             </div>
         </div>
     )
