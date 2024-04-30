@@ -1,55 +1,44 @@
-import Brush from "../../ts/brush";
+"use client";
+
+import { useEffect, Dispatch } from "react"; 
+import Brush from "../../ts/class/brush";
+import LinesHistory from "../../ts/class/history";
+import undo from "@/app/components/utils/undo";
+import utils from "./utils";
+const { setColor, setWidthBrush, setTool, clear, handleToolClick } = utils;
 
 interface UtilsProps {
     data: Brush;
-    setDraw: React.Dispatch<React.SetStateAction<Brush>>;
+    setDraw: Dispatch<React.SetStateAction<Brush>>; 
+    history: LinesHistory;
+    setHistory: Dispatch<React.SetStateAction<LinesHistory>>;
 }
 
-export default function Utils({ data, setDraw }: UtilsProps) {
+export default function Utils({ data, setDraw, history, setHistory }: UtilsProps) {
     const colors = ['red', 'blue', 'green', 'yellow', 'black', 'white'];
-    const utils = ['brush', 'eraser', 'bucket']
+    const utils = ['brush', 'eraser', 'bucket', 'undo', 'redo'];
 
-    function handleToolClick(util: string) {
-        switch(util) {
-            case 'brush':
-                brush();
-                break;
-            case 'eraser':
-                eraser();
-                break;
-            case 'bucket':
-                bucket();
-                break;
-            default:
-                console.error(`Unknown tool: ${util}`);
-        }
-    }
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key == 'e') {
+                setTool('eraser', setDraw);
+            } else if (e.key == 'b') {
+                setTool('brush', setDraw);
+            } else if (e.key == 'f') {
+                setTool('bucket', setDraw);
+            } else if (e.key == 'Delete') {
+                clear(history);
+            } else if (e.key == 'z' && e.ctrlKey) {
+                undo(history, setHistory);
+            }
+        };
 
-    function colorFocus(color: string) {
-        setDraw(prevDraw => ({ ...prevDraw, color: color }));
-    }
+        window.addEventListener('keydown', handleKeyDown);
 
-    function widthBrush(e: React.ChangeEvent<HTMLInputElement>) {
-        setDraw(prevDraw => ({ ...prevDraw, brushSize: Number(e.target.value) }));
-    }
-
-    function brush() {
-        setDraw(prevDraw => ({ ...prevDraw, tool: 'brush', toolImg: '/brush.png' }));
-    }
-
-    function eraser() {
-        setDraw(prevDraw => ({ ...prevDraw, tool: 'eraser', toolImg: '/eraser.png' }));
-    }
-
-    function bucket() {
-        setDraw(prevDraw => ({ ...prevDraw, tool: 'fill', toolImg: '/bucket.png' }));
-    }
-
-    function clear() {
-        const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-        const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
 
     return (
         <div className="absolute top-0 border border-black p-2 m-10">
@@ -57,7 +46,7 @@ export default function Utils({ data, setDraw }: UtilsProps) {
             <p>y : {data.cursorPos.y}</p>
             <button
                 className="bg-black text-white"
-                onClick={clear}>
+                onClick={() => clear(history)}>
                 Clear
             </button>
             <div className="flex">
@@ -66,14 +55,14 @@ export default function Utils({ data, setDraw }: UtilsProps) {
                         <button
                             style={{ backgroundColor: color }}
                             className="w-14 h-14"
-                            onClick={() => colorFocus(colors[index])}>
+                            onClick={() => setColor(colors[index], setDraw)}>
                         </button>
                     </div>
                 ))}
             </div>
             <input
                 type="number"
-                onChange={widthBrush}
+                onChange={(e) => setWidthBrush(e, setDraw)}
                 placeholder={data.brushSize.toString()}
             />
             <div className="flex align-middle">
@@ -81,7 +70,7 @@ export default function Utils({ data, setDraw }: UtilsProps) {
                     <div key={index}>
                         <button
                             className="mr-10"
-                            onClick={() => handleToolClick(util)}>
+                            onClick={() => handleToolClick(util, setDraw, setHistory, history)}>
                             <img
                                 src={`/${util}.png`}
                                 alt={util}

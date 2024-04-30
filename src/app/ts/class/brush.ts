@@ -1,4 +1,4 @@
-class Brush {
+export default class Brush {
   tool: string;
   color: string;
   brushSize: number;
@@ -13,5 +13,3 @@ class Brush {
     this.toolImg = toolImg;
   }
 }
-
-export default Brush;

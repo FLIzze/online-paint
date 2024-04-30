@@ -1,6 +1,7 @@
-import Brush from './brush';
+import Brush from './class/brush';
+import LinesHistory from './class/history';
 
-export default function drawOnCanvas(draw: Brush, lastPosition: { x: number, y: number }, setLastPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number; }>>) {
+export default function drawOnCanvas(draw: Brush, lastPosition: { x: number, y: number }, setLastPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number; }>>, history: LinesHistory, setHistory: React.Dispatch<React.SetStateAction<LinesHistory>>) {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement;
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
@@ -25,5 +26,16 @@ export default function drawOnCanvas(draw: Brush, lastPosition: { x: number, y: 
   }
 
   ctx.stroke();
+  ctx.closePath();
   setLastPosition(draw.cursorPos);
-} 
+
+  history.append({
+    tool: draw.tool,
+    color: draw.color,
+    brushSize: draw.brushSize,
+    from: lastPosition,
+    to: draw.cursorPos
+  });
+  setHistory(history);
+}
+
