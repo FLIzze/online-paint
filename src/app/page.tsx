@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import Utils from "./components/utils/page";
+import Utils from "../../components/utils/page";
 import useMouseHandlers from "./ts/mouseMove";
 import drawOnCanvas from "./ts/drawing";
 

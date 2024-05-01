@@ -1,22 +1,62 @@
 import Brush from "@/app/ts/class/brush";
 import PaintHistory from "@/app/ts/class/history";
-import undo from "@/app/components/utils/undo";
+import undo from "./undo";
 
 function setColor(color: string, setDraw: React.Dispatch<React.SetStateAction<Brush>>) {
-    setDraw(prevDraw => ({ ...prevDraw, color: color }));
+    setDraw(
+        prevDraw => new Brush(
+            prevDraw.tool,
+            color,
+            prevDraw.brushSize,
+            prevDraw.cursorPos,
+            prevDraw.toolImg
+        )
+    );
 }
 
 function setWidthBrush(e: React.ChangeEvent<HTMLInputElement>, setDraw: React.Dispatch<React.SetStateAction<Brush>>) {
-    setDraw(prevDraw => ({ ...prevDraw, brushSize: Number(e.target.value) }));
+    setDraw(
+        prevDraw => new Brush(
+            prevDraw.tool,
+            prevDraw.color,
+            prevDraw.brushSize,
+            prevDraw.cursorPos,
+            prevDraw.toolImg
+        )
+    );
 }
 
 function setTool(tool: string, setDraw: React.Dispatch<React.SetStateAction<Brush>>) {
     if (tool === 'brush') {
-        setDraw(prevDraw => ({ ...prevDraw, tool: 'brush', toolImg: '/brush.png' }));
+        setDraw(
+            prevDraw => new Brush(
+                'brush',
+                prevDraw.color,
+                prevDraw.brushSize,
+                prevDraw.cursorPos,
+                '/brush.png'
+            )
+        )
     } else if (tool === 'eraser') {
-        setDraw(prevDraw => ({ ...prevDraw, tool: 'eraser', toolImg: '/eraser.png' }));
+        setDraw(
+            prevDraw => new Brush(
+                'eraser',
+                prevDraw.color,
+                prevDraw.brushSize,
+                prevDraw.cursorPos,
+                '/eraser.png'
+            )
+        );
     } else if (tool === 'bucket') {
-        setDraw(prevDraw => ({ ...prevDraw, tool: 'fill', toolImg: '/bucket.png' }));
+        setDraw(
+            prevDraw => new Brush(
+                'fill',
+                prevDraw.color,
+                prevDraw.brushSize,
+                prevDraw.cursorPos,
+                '/bucket.png'
+            )
+        );
     }
 }
 
@@ -41,11 +81,7 @@ function handleToolClick(util: string, setDraw: React.Dispatch<React.SetStateAct
         case 'undo':
             undo(history, setHistory);
             break;
-        case 'redo':
-            break;
-        default:
-            console.error(`Unknown tool: ${util}`);
     }
 }
 
-export default { setColor, setWidthBrush, setTool, clear, handleToolClick}
+export default { setColor, setWidthBrush, setTool, clear, handleToolClick }

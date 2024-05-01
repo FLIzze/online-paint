@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, Dispatch } from "react"; 
-import Brush from "../../ts/class/brush";
-import LinesHistory from "../../ts/class/history";
-import undo from "@/app/components/utils/undo";
-import utils from "./utils";
+import Brush from "@/app/ts/class/brush";
+import LinesHistory from "@/app/ts/class/history";
+import undo from "@/app/ts/undo";
+import utils from "../../src/app/ts/utils";
 const { setColor, setWidthBrush, setTool, clear, handleToolClick } = utils;
 
 interface UtilsProps {
