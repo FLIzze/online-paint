@@ -26,7 +26,7 @@ interface UtilsProps {
 
 export default function Utils({ data, setDraw, history, setHistory, draw, lastPosition, setLastPosition }: UtilsProps) {
     const colors = ['red', 'blue', 'green', 'yellow', 'black', 'white'];
-    const utils = ['brush', 'eraser', 'bucket', 'undo', 'redo'];
+    const utils = ['brush', 'eraser', 'bucket', 'undo', 'redo', 'zoom', 'logs', 'clear'];
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -53,19 +53,10 @@ export default function Utils({ data, setDraw, history, setHistory, draw, lastPo
         };
     }, [history]);
 
-    function getLogs() {
-        console.log(history);
-    }
-
     return (
         <div className="absolute top-0 border border-black p-2 m-10">
             <p>x : {data.cursorPos.x}</p>
             <p>y : {data.cursorPos.y}</p>
-            <button
-                className="bg-black text-white"
-                onClick={() => { clearCanvas(); clearHistory(setHistory); }}>
-                Clear
-            </button>
             <div className="flex">
                 {colors.map((color, index) => (
                     <div key={index}>
@@ -98,7 +89,6 @@ export default function Utils({ data, setDraw, history, setHistory, draw, lastPo
                     </div>
                 ))}
             </div>
-            <button onClick={getLogs}>logs</button>
         </div>
     )
 }

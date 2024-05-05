@@ -2,6 +2,8 @@ import Brush from "@/app/ts/class/brush";
 import PaintHistory from "@/app/ts/class/history";
 import undo from "./historyManagement/undo";
 import redo from "./historyManagement/redo";
+import clearCanvas from "./clear/clearCanvas";
+import clearHistory from "./clear/clearHistory";
 import { SetStateAction } from "react";
 import { Dispatch } from "react";
 
@@ -79,6 +81,14 @@ function handleToolClick(util: string, setDraw: React.Dispatch<React.SetStateAct
             break;
         case 'redo':
             redo(history, setHistory);
+            break;
+        case 'clear':
+            clearCanvas();
+            clearHistory(setHistory);
+            break;
+        case 'logs':
+            console.log(history);
+            break;
     }
 }
 
