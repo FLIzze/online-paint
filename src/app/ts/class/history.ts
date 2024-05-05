@@ -17,19 +17,25 @@ export default class ActionHistory {
     }
 
     undo() {
+        let line: StackInterface
         if (this.undoStack.length > 0) {
-            const line = this.undoStack.pop();
-            if (line !== undefined) {
+            try {
+                line = this.undoStack.pop() as StackInterface;
                 this.redoStack.push(line);
+            } catch (e) {
+                console.error(`error popping undoStack ${e}`)
             }
         }
     }
 
     redo() {
-        if (this.redoStack.length > 0) {
-            const line = this.redoStack.pop();
-            if (line !== undefined) {
+        let line: StackInterface
+        if (this.undoStack.length > 0) {
+            try {
+                line = this.redoStack.pop() as StackInterface;
                 this.undoStack.push(line);
+            } catch (e) {
+                console.error(`error popping redoStack ${e}`)
             }
         }
     }

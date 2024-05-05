@@ -37,6 +37,12 @@ export default function pixelsDraw(draw: Brush, lastPosition: { x: number, y: nu
     from: lastPosition,
     to: draw.cursorPos
   });
-  setHistory(history);
+  
+  setHistory(prevHistory => new ActionHistory(
+    [...prevHistory.undoStack],
+    [],
+    [],
+    prevHistory.actionCount
+))
 }
 

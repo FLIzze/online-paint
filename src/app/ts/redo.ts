@@ -1,7 +1,7 @@
-import appendHistory from "./historyAppendNewAction";
-import reDrawPixelsHistory from "./reDrawPixelsHistory";
+import appendHistory from "./historyAddNewActionBreak";
 import clearCanvas from "./clearCanvas";
 import ActionHistory from "@/app/ts/class/history";
+import drawPixelsFromUndoStack from "./drawPixelsFromUndoStack";
 
 export default function redo(history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>) {
     if (history.redoStack.length == 0) {
@@ -13,12 +13,16 @@ export default function redo(history: ActionHistory, setHistory: React.Dispatch<
         history.redo();
     }
 
-    history.nmbPixelsInLineUndo.pop();
+    try {
+        history.nmbPixelsInLineUndo.pop();
+    } catch(e) {
+        console.error(`error popping nmbPixelsInLineUndo ${e}`)
+    }
 
     clearCanvas();
 
     for (const action of history.undoStack) {
-        reDrawPixelsHistory(action);
+        drawPixelsFromUndoStack(action);
     }
 
     appendHistory(history, setHistory);

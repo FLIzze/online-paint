@@ -1,6 +1,6 @@
 import ActionHistory from "./class/history";
 
-export default function appendHistory(history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>) {
+export default function historyAddNewActionBreak(history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>) {
   history.append({
     tool: 'new line',
     color: 'new line',
@@ -10,9 +10,9 @@ export default function appendHistory(history: ActionHistory, setHistory: React.
   });
 
   setHistory(prevHistory => new ActionHistory(
-    prevHistory.undoStack,
-    prevHistory.redoStack,
-    prevHistory.nmbPixelsInLineUndo,
+    [...prevHistory.undoStack],
+    [...prevHistory.redoStack],
+    [...prevHistory.nmbPixelsInLineUndo],
     prevHistory.actionCount + 1
   ));
 }

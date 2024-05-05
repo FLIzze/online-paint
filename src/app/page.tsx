@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Utils from "../../components/utils/page";
-import useMouseHandlers from "./ts/mouseMove";
+import useMouseHandlers from "./ts/mouseMoveEvents";
 import pixelsDraw from "./ts/pixelsDraw";
 
 export default function Home() {

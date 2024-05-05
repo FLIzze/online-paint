@@ -1,4 +1,4 @@
-export default function reDrawPixelsHistory(action: StackInterface) {
+export default function drawPixelsFromUndoStack(action: StackInterface) {
     const canvas = document.getElementById('canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 

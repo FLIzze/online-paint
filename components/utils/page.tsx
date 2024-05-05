@@ -2,18 +2,19 @@
 
 import { useEffect, Dispatch } from "react"; 
 import Brush from "@/app/ts/class/brush";
-import LinesHistory from "@/app/ts/class/history";
 import undo from "@/app/ts/undo";
 import utils from "../../src/app/ts/utils";
 import { SetStateAction } from "react";
 import clearCanvas from "@/app/ts/clearCanvas";
+import ActionHistory from "@/app/ts/class/history";
+import redo from "@/app/ts/redo";
 const { setColor, setWidthBrush, setTool, handleToolClick } = utils;
 
 interface UtilsProps {
     data: Brush;
     setDraw: Dispatch<React.SetStateAction<Brush>>; 
-    history: LinesHistory;
-    setHistory: Dispatch<React.SetStateAction<LinesHistory>>;
+    history: ActionHistory;
+    setHistory: Dispatch<React.SetStateAction<ActionHistory>>;
     draw: Brush;
     lastPosition: {x: number, y: number};
     setLastPosition: Dispatch<SetStateAction<{
@@ -36,8 +37,10 @@ export default function Utils({ data, setDraw, history, setHistory, draw, lastPo
                 setTool('bucket', setDraw);
             } else if (e.key == 'Delete') {
                 clearCanvas();
-            } else if (e.key == 'z' && e.ctrlKey) {
+            } else if (e.key == 'u') {
                 undo(history, setHistory);
+            } else if (e.key == 'r') {
+                redo(history, setHistory)
             }
         };
 
@@ -46,7 +49,7 @@ export default function Utils({ data, setDraw, history, setHistory, draw, lastPo
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, []);
+    }, [history]);
 
     function getLogs() {
         console.log(history);

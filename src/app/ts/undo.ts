@@ -1,24 +1,14 @@
-import reDrawPixelsHistory from "./reDrawPixelsHistory";
 import clearCanvas from "./clearCanvas";
 import ActionHistory from "./class/history";
+import drawPixelsFromUndoStack from "./drawPixelsFromUndoStack";
 
 export default function undo(history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>) {
     let linesCount = 1;
 
     clearCanvas();
 
-    if (history.undoStack.length == 0 ) {
+    if (history.undoStack.length == 0 || history.actionCount == 1 ) {
         console.log('nothing to undo.');
-        return;
-    } else if (history.actionCount == 1) {
-        console.log('cant undo clear instead.');
-        clearCanvas();
-        setHistory(new ActionHistory(
-            [],
-            [],
-            [],
-            0
-        ))
         return;
     }
 
@@ -27,21 +17,25 @@ export default function undo(history: ActionHistory, setHistory: React.Dispatch<
             linesCount++;
             if (linesCount == history.actionCount) {
                 setHistory(prevHistory => new ActionHistory(
-                    prevHistory.undoStack,
-                    prevHistory.redoStack,
-                    prevHistory.nmbPixelsInLineUndo,
+                    [...prevHistory.undoStack],
+                    [...prevHistory.redoStack],
+                    [...prevHistory.nmbPixelsInLineUndo],
                     prevHistory.actionCount - 1
                 ));
                 break;
             }
         } else {
-            reDrawPixelsHistory(action);
+            drawPixelsFromUndoStack(action);
         }
     }
 
     history.nmbPixelsCountUndo = 0;
 
-    history.undoStack.pop();
+    try {
+        history.undoStack.pop();
+    } catch (e) {
+        console.error(`error popping undoStack ${e}`)
+    }
 
     while (history.undoStack[history.undoStack.length - 1].tool != 'new line') {
         history.undo();
@@ -51,9 +45,9 @@ export default function undo(history: ActionHistory, setHistory: React.Dispatch<
     history.nmbPixelsInLineUndo.push(history.nmbPixelsCountUndo);
 
     setHistory(prevHistory => new ActionHistory(
-        prevHistory.undoStack,
-        prevHistory.redoStack,
-        prevHistory.nmbPixelsInLineUndo,
+        [...prevHistory.undoStack],
+        [...prevHistory.redoStack],
+        [...prevHistory.nmbPixelsInLineUndo],
         prevHistory.actionCount
     ))
 }

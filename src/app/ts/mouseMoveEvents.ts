@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Brush from "./class/brush"
 import ActionHistory from "./class/history";
-import appendHistory from "./historyAppendNewAction";
+import historyAddNewActionBreak from "./historyAddNewActionBreak";
 
 export default function useMouseHandlers() {
   const [leftClick, setLeftClick] = useState(false);
@@ -40,7 +40,7 @@ export default function useMouseHandlers() {
   
   function handleMouseUp(e: React.MouseEvent<HTMLCanvasElement>) {
     if (e.target == document.getElementById('canvas')) {
-      appendHistory(history, setHistory);
+      historyAddNewActionBreak(history, setHistory);
       setLeftClick(false);
     }
   }
