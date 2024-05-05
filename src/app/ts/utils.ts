@@ -1,6 +1,10 @@
 import Brush from "@/app/ts/class/brush";
 import PaintHistory from "@/app/ts/class/history";
 import undo from "./undo";
+import redo from "./redo";
+import LinesHistory from "@/app/ts/class/history";
+import { SetStateAction } from "react";
+import { Dispatch } from "react";
 
 function setColor(color: string, setDraw: React.Dispatch<React.SetStateAction<Brush>>) {
     setDraw(
@@ -14,12 +18,12 @@ function setColor(color: string, setDraw: React.Dispatch<React.SetStateAction<Br
     );
 }
 
-function setWidthBrush(e: React.ChangeEvent<HTMLInputElement>, setDraw: React.Dispatch<React.SetStateAction<Brush>>) {
+function setWidthBrush(brushWidth: number, setDraw: React.Dispatch<React.SetStateAction<Brush>>) {
     setDraw(
         prevDraw => new Brush(
             prevDraw.tool,
             prevDraw.color,
-            prevDraw.brushSize,
+            brushWidth,
             prevDraw.cursorPos,
             prevDraw.toolImg
         )
@@ -67,7 +71,7 @@ function clear(history: PaintHistory) {
     history.clear();
 }
 
-function handleToolClick(util: string, setDraw: React.Dispatch<React.SetStateAction<Brush>>, setHistory: React.Dispatch<React.SetStateAction<PaintHistory>>, history: PaintHistory) {
+function handleToolClick(util: string, setDraw: React.Dispatch<React.SetStateAction<Brush>>, setHistory: React.Dispatch<React.SetStateAction<PaintHistory>>, history: PaintHistory, draw: Brush, lastPosition: { x: number, y: number }, setLastPosition: Dispatch<SetStateAction<{ x: number; y: number; }>>) {
     switch (util) {
         case 'brush':
             setTool('brush', setDraw);
@@ -81,6 +85,8 @@ function handleToolClick(util: string, setDraw: React.Dispatch<React.SetStateAct
         case 'undo':
             undo(history, setHistory);
             break;
+        case 'redo':
+            redo(history, setHistory);
     }
 }
 

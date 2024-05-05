@@ -1,52 +1,57 @@
 import LinesHistory from "@/app/ts/class/history";
+import reDrawPixelsHistory from "./reDrawPixelsHistory";
 
-let count = 0;
+let linesCount = 0;
+let pixelsCountLastLine = 0;
 
 export default function undo(history: LinesHistory, setHistory: React.Dispatch<React.SetStateAction<LinesHistory>>) {
-    count = 0;
+    linesCount = 0;
+    pixelsCountLastLine = 0;
     const canvas = document.getElementById('canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    if (history.getCount() == 1) {
-        history.clear();
+    console.log(history);
+
+    if (history.undoStack.length == 0) {
         return;
     }
 
     for (const action of history.undoStack) {
         if (action.tool == 'new line') {
-            if (count == history.getCount() - 2) {
-                history.setCount(history.getCount() - 1);
+            linesCount++;
+            if (linesCount == history.getCount() - 1) {
+                setHistory(prevHistory => new LinesHistory(
+                    prevHistory.undoStack,
+                    prevHistory.redoStack,
+                    prevHistory.nmbPixelsInLineUndo,
+                    prevHistory.getCount() - 1
+                ));
                 break;
-            } else {
-                count++;
-                history.undo();
-                setHistory(history);
             }
         } else {
-            ctx.beginPath();
-            ctx.moveTo(action.from.x, action.from.y);
-            ctx.lineTo(action.to.x, action.to.y);
-            ctx.lineWidth = action.brushSize;
-            ctx.lineJoin = 'round';
-            ctx.lineCap = 'round';
-            ctx.strokeStyle = action.color;
-
-            if (action.tool === 'brush') {
-                ctx.globalCompositeOperation = 'source-over';
-                ctx.strokeStyle = action.color;
-            } else if (action.tool === 'eraser') {
-                ctx.globalCompositeOperation = 'destination-out';
-                ctx.strokeStyle = 'rgba(0,0,0,1)';
-            } else if (action.tool == 'fill') {
-                ctx.globalCompositeOperation = 'source-over';
-                ctx.fillStyle = action.color;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            if (linesCount == history.getCount() - 2) {
+                pixelsCountLastLine++;
             }
-
-            ctx.stroke();
-            ctx.closePath();
+            reDrawPixelsHistory(action);
         }
     }
+
+    for (let i = 0; i < pixelsCountLastLine - 1; i++) {
+        if (i == 0) {
+            history.undoStack.pop();
+        } else {
+            history.undo();
+        }
+    }
+
+    history.nmbPixelsInLineUndo.push(pixelsCountLastLine);
+
+    setHistory(prevHistory => new LinesHistory(
+        prevHistory.undoStack,
+        prevHistory.redoStack,
+        prevHistory.nmbPixelsInLineUndo,
+        prevHistory.getCount()
+    ))
 }

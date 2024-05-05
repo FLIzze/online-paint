@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Utils from "../../components/utils/page";
 import useMouseHandlers from "./ts/mouseMove";
-import drawOnCanvas from "./ts/drawing";
+import pixelsDraw from "./ts/pixelsDraw";
 
 export default function Home() {
   const width = 800;
@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     if (leftClick) {
-      drawOnCanvas(draw, lastPosition, setLastPosition, history, setHistory);
+      pixelsDraw(draw, lastPosition, setLastPosition, history, setHistory);
     }
   }, [draw, leftClick, lastPosition]);
 
@@ -33,7 +33,7 @@ export default function Home() {
           onMouseUp={(e) => handleMouseUp(e)}>
         </canvas>
       </div>
-      <Utils data={draw} setDraw={setDraw} history={history} setHistory={setHistory} />
+      <Utils data={draw} setDraw={setDraw} history={history} setHistory={setHistory} draw={draw} lastPosition={lastPosition} setLastPosition={setLastPosition}/>
     </div>
   );
 }

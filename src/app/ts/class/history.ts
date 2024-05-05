@@ -1,16 +1,18 @@
 export default class LinesHistory {
     undoStack: Array<StackInterface> = [];
     redoStack: Array<StackInterface> = [];
+    nmbPixelsInLineUndo: number[] = [];
     lineCount: number = 0;
 
-    constructor() {
-        this.undoStack = [];
-        this.redoStack = [];
+    constructor(undoStack: Array<StackInterface>, redoStack: Array<StackInterface>, nmbPixelsInLineUndo: number[], lineCount: number) {
+        this.undoStack = undoStack;
+        this.redoStack = redoStack;
+        this.nmbPixelsInLineUndo = nmbPixelsInLineUndo;
+        this.lineCount = lineCount;
     }
 
     append(line: StackInterface) {
         this.undoStack.push(line);
-        this.redoStack = [];
     }
 
     undo() {
@@ -34,20 +36,21 @@ export default class LinesHistory {
     clear() {
         this.undoStack = [];
         this.redoStack = [];
-        this.lineCount = 0;
-    }
-
-    addLine() {
-        this.lineCount++;
     }
 
     getCount() {
         return this.lineCount;
     }
 
-    setCount(newCount: number) {
-        if (newCount > 0) {
-            this.lineCount = newCount;
+    addCount() {
+        if (this.lineCount < this.undoStack.length) {
+            this.lineCount++;
+        }
+    }
+
+    minusCount() {
+        if (this.lineCount > 0) {
+            this.lineCount--;
         }
     }
 }
