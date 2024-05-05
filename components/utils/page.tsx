@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, Dispatch } from "react"; 
+import { useEffect, Dispatch, useState } from "react"; 
 import { SetStateAction } from "react";
 import Brush from "@/app/ts/class/brush";
 import utils from "@/app/ts/utils";
@@ -26,7 +26,8 @@ interface UtilsProps {
 
 export default function Utils({ data, setDraw, history, setHistory, draw, lastPosition, setLastPosition }: UtilsProps) {
     const colors = ['red', 'blue', 'green', 'yellow', 'black', 'white'];
-    const utils = ['brush', 'eraser', 'bucket', 'undo', 'redo', 'zoom', 'logs', 'clear'];
+    const utils = ['brush', 'eraser', 'bucket', 'undo', 'redo', 'zoom-in',  'zoom-out', 'logs', 'clear'];
+    const [zoomLevel, setZoomLevel] = useState<number>(1);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -54,9 +55,10 @@ export default function Utils({ data, setDraw, history, setHistory, draw, lastPo
     }, [history]);
 
     return (
-        <div className="absolute top-0 border border-black p-2 m-10">
+        <div className="absolute top-0 border border-black p-2 m-8">
             <p>x : {data.cursorPos.x}</p>
             <p>y : {data.cursorPos.y}</p>
+            <p>zoom : {zoomLevel}</p>
             <div className="flex">
                 {colors.map((color, index) => (
                     <div key={index}>
