@@ -1,12 +1,11 @@
-import LinesHistory from "@/app/ts/class/history";
 import appendHistory from "./historyAppendNewAction";
 import reDrawPixelsHistory from "./reDrawPixelsHistory";
+import clearCanvas from "./clearCanvas";
+import ActionHistory from "@/app/ts/class/history";
 
-export default function redo(history: LinesHistory, setHistory: React.Dispatch<React.SetStateAction<LinesHistory>>) {
-    const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-
+export default function redo(history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>) {
     if (history.redoStack.length == 0) {
+        console.log('nothing to redo.');
         return;
     }
 
@@ -16,7 +15,7 @@ export default function redo(history: LinesHistory, setHistory: React.Dispatch<R
 
     history.nmbPixelsInLineUndo.pop();
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    clearCanvas();
 
     for (const action of history.undoStack) {
         reDrawPixelsHistory(action);

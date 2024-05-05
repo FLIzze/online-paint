@@ -1,57 +1,59 @@
-import LinesHistory from "@/app/ts/class/history";
 import reDrawPixelsHistory from "./reDrawPixelsHistory";
+import clearCanvas from "./clearCanvas";
+import ActionHistory from "./class/history";
 
-let linesCount = 0;
-let pixelsCountLastLine = 0;
+export default function undo(history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>) {
+    let linesCount = 1;
 
-export default function undo(history: LinesHistory, setHistory: React.Dispatch<React.SetStateAction<LinesHistory>>) {
-    linesCount = 0;
-    pixelsCountLastLine = 0;
-    const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+    clearCanvas();
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    console.log(history);
-
-    if (history.undoStack.length == 0) {
+    if (history.undoStack.length == 0 ) {
+        console.log('nothing to undo.');
+        return;
+    } else if (history.actionCount == 1) {
+        console.log('cant undo clear instead.');
+        clearCanvas();
+        setHistory(new ActionHistory(
+            [],
+            [],
+            [],
+            0
+        ))
         return;
     }
 
     for (const action of history.undoStack) {
         if (action.tool == 'new line') {
             linesCount++;
-            if (linesCount == history.getCount() - 1) {
-                setHistory(prevHistory => new LinesHistory(
+            if (linesCount == history.actionCount) {
+                setHistory(prevHistory => new ActionHistory(
                     prevHistory.undoStack,
                     prevHistory.redoStack,
                     prevHistory.nmbPixelsInLineUndo,
-                    prevHistory.getCount() - 1
+                    prevHistory.actionCount - 1
                 ));
                 break;
             }
         } else {
-            if (linesCount == history.getCount() - 2) {
-                pixelsCountLastLine++;
-            }
             reDrawPixelsHistory(action);
         }
     }
 
-    for (let i = 0; i < pixelsCountLastLine - 1; i++) {
-        if (i == 0) {
-            history.undoStack.pop();
-        } else {
-            history.undo();
-        }
+    history.nmbPixelsCountUndo = 0;
+
+    history.undoStack.pop();
+
+    while (history.undoStack[history.undoStack.length - 1].tool != 'new line') {
+        history.undo();
+        history.nmbPixelsCountUndo++;
     }
 
-    history.nmbPixelsInLineUndo.push(pixelsCountLastLine);
+    history.nmbPixelsInLineUndo.push(history.nmbPixelsCountUndo);
 
-    setHistory(prevHistory => new LinesHistory(
+    setHistory(prevHistory => new ActionHistory(
         prevHistory.undoStack,
         prevHistory.redoStack,
         prevHistory.nmbPixelsInLineUndo,
-        prevHistory.getCount()
+        prevHistory.actionCount
     ))
 }

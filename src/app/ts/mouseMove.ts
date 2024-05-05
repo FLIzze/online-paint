@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import Brush from "./class/brush"
-import LinesHistory from "./class/history";
+import ActionHistory from "./class/history";
 import appendHistory from "./historyAppendNewAction";
 
 export default function useMouseHandlers() {
   const [leftClick, setLeftClick] = useState(false);
   const [lastPosition, setLastPosition] = useState({ x: 0, y: 0 });
   const [draw, setDraw] = useState(new Brush('brush', 'red', 10, { x: 0, y: 0 }, '/brush.png'));
-  const [history, setHistory] = useState<LinesHistory>(new LinesHistory([], [], [], 0));
+  const [history, setHistory] = useState<ActionHistory>(new ActionHistory([], [], [], 0));
 
   useEffect(() => {
     const handleGlobalMouseUp = () => {
@@ -30,8 +30,6 @@ export default function useMouseHandlers() {
       { x: e.clientX - rect.left, y: e.clientY - rect.top },
       prevDraw.toolImg
     ));
-    
-    console.log(history);
   }
 
   function handleMouseDown(e: React.MouseEvent<HTMLCanvasElement>) {

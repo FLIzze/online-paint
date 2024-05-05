@@ -10,10 +10,10 @@ export default function reDrawPixelsHistory(action: StackInterface) {
     ctx.lineCap = 'round';
     ctx.strokeStyle = action.color;
 
-    if (action.tool === 'brush') {
+    if (action.tool == 'brush') {
         ctx.globalCompositeOperation = 'source-over';
         ctx.strokeStyle = action.color;
-    } else if (action.tool === 'eraser') {
+    } else if (action.tool == 'eraser') {
         ctx.globalCompositeOperation = 'destination-out';
         ctx.strokeStyle = 'rgba(0,0,0,1)';
     } else if (action.tool == 'fill') {

@@ -12,44 +12,4 @@ export default class Brush {
     this.cursorPos = cursorPos;
     this.toolImg = toolImg;
   }
-
-  setTool(tool: string) {
-    this.tool = tool;
-  }
-
-  setColor(color: string) {
-    this.color = color;
-  }
-
-  setBrushSize(brushSize: number) {
-    this.brushSize = brushSize;
-  }
-
-  setCursorPos(cursorPos: { x: number, y: number }) {
-    this.cursorPos = cursorPos;
-  }
-
-  setToolImg(toolImg: string) {
-    this.toolImg = toolImg;
-  }
-
-  getTool() {
-    return this.tool;
-  }
-
-  getColor() {
-    return this.color;
-  }
-
-  getBrushSize() {
-    return this.brushSize;
-  }
-
-  getCursorPos() {
-    return this.cursorPos;
-  }
-
-  getToolImg() {
-    return this.toolImg;
-  }
 }

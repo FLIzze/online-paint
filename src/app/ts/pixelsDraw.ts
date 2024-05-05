@@ -1,7 +1,7 @@
 import Brush from './class/brush';
-import LinesHistory from './class/history';
+import ActionHistory from './class/history';
 
-export default function pixelsDraw(draw: Brush, lastPosition: { x: number, y: number }, setLastPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number; }>>, history: LinesHistory, setHistory: React.Dispatch<React.SetStateAction<LinesHistory>>) {
+export default function pixelsDraw(draw: Brush, lastPosition: { x: number, y: number }, setLastPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number; }>>, history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>) {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement;
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
@@ -13,10 +13,10 @@ export default function pixelsDraw(draw: Brush, lastPosition: { x: number, y: nu
   ctx.lineCap = 'round';
   ctx.strokeStyle = draw.color;
 
-  if (draw.tool === 'brush') {
+  if (draw.tool == 'brush') {
     ctx.globalCompositeOperation = 'source-over';
     ctx.strokeStyle = draw.color;
-  } else if (draw.tool === 'eraser') {
+  } else if (draw.tool == 'eraser') {
     ctx.globalCompositeOperation = 'destination-out';
     ctx.strokeStyle = 'rgba(0,0,0,1)';
   } else if (draw.tool == 'fill') {

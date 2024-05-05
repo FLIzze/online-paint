@@ -6,7 +6,8 @@ import LinesHistory from "@/app/ts/class/history";
 import undo from "@/app/ts/undo";
 import utils from "../../src/app/ts/utils";
 import { SetStateAction } from "react";
-const { setColor, setWidthBrush, setTool, clear, handleToolClick } = utils;
+import clearCanvas from "@/app/ts/clearCanvas";
+const { setColor, setWidthBrush, setTool, handleToolClick } = utils;
 
 interface UtilsProps {
     data: Brush;
@@ -26,26 +27,30 @@ export default function Utils({ data, setDraw, history, setHistory, draw, lastPo
     const utils = ['brush', 'eraser', 'bucket', 'undo', 'redo'];
 
     useEffect(() => {
-        // const handleKeyDown = (e: KeyboardEvent) => {
-        //     if (e.key == 'e') {
-        //         setTool('eraser', setDraw);
-        //     } else if (e.key == 'b') {
-        //         setTool('brush', setDraw);
-        //     } else if (e.key == 'f') {
-        //         setTool('bucket', setDraw);
-        //     } else if (e.key == 'Delete') {
-        //         clear(history);
-        //     } else if (e.key == 'z' && e.ctrlKey) {
-        //         undo(history, setHistory);
-        //     }
-        // };
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key == 'e') {
+                setTool('eraser', setDraw);
+            } else if (e.key == 'b') {
+                setTool('brush', setDraw);
+            } else if (e.key == 'f') {
+                setTool('bucket', setDraw);
+            } else if (e.key == 'Delete') {
+                clearCanvas();
+            } else if (e.key == 'z' && e.ctrlKey) {
+                undo(history, setHistory);
+            }
+        };
 
-        // window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keydown', handleKeyDown);
 
-        // return () => {
-        //     window.removeEventListener('keydown', handleKeyDown);
-        // };
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
     }, []);
+
+    function getLogs() {
+        console.log(history);
+    }
 
     return (
         <div className="absolute top-0 border border-black p-2 m-10">
@@ -53,7 +58,7 @@ export default function Utils({ data, setDraw, history, setHistory, draw, lastPo
             <p>y : {data.cursorPos.y}</p>
             <button
                 className="bg-black text-white"
-                onClick={() => clear(history)}>
+                onClick={() => clearCanvas()}>
                 Clear
             </button>
             <div className="flex">
@@ -88,6 +93,7 @@ export default function Utils({ data, setDraw, history, setHistory, draw, lastPo
                     </div>
                 ))}
             </div>
+            <button onClick={getLogs}>logs</button>
         </div>
     )
 }

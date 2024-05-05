@@ -2,7 +2,6 @@ import Brush from "@/app/ts/class/brush";
 import PaintHistory from "@/app/ts/class/history";
 import undo from "./undo";
 import redo from "./redo";
-import LinesHistory from "@/app/ts/class/history";
 import { SetStateAction } from "react";
 import { Dispatch } from "react";
 
@@ -31,7 +30,7 @@ function setWidthBrush(brushWidth: number, setDraw: React.Dispatch<React.SetStat
 }
 
 function setTool(tool: string, setDraw: React.Dispatch<React.SetStateAction<Brush>>) {
-    if (tool === 'brush') {
+    if (tool == 'brush') {
         setDraw(
             prevDraw => new Brush(
                 'brush',
@@ -41,7 +40,7 @@ function setTool(tool: string, setDraw: React.Dispatch<React.SetStateAction<Brus
                 '/brush.png'
             )
         )
-    } else if (tool === 'eraser') {
+    } else if (tool == 'eraser') {
         setDraw(
             prevDraw => new Brush(
                 'eraser',
@@ -51,7 +50,7 @@ function setTool(tool: string, setDraw: React.Dispatch<React.SetStateAction<Brus
                 '/eraser.png'
             )
         );
-    } else if (tool === 'bucket') {
+    } else if (tool == 'bucket') {
         setDraw(
             prevDraw => new Brush(
                 'fill',
@@ -62,13 +61,6 @@ function setTool(tool: string, setDraw: React.Dispatch<React.SetStateAction<Brus
             )
         );
     }
-}
-
-function clear(history: PaintHistory) {
-    const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    history.clear();
 }
 
 function handleToolClick(util: string, setDraw: React.Dispatch<React.SetStateAction<Brush>>, setHistory: React.Dispatch<React.SetStateAction<PaintHistory>>, history: PaintHistory, draw: Brush, lastPosition: { x: number, y: number }, setLastPosition: Dispatch<SetStateAction<{ x: number; y: number; }>>) {
@@ -90,4 +82,4 @@ function handleToolClick(util: string, setDraw: React.Dispatch<React.SetStateAct
     }
 }
 
-export default { setColor, setWidthBrush, setTool, clear, handleToolClick }
+export default { setColor, setWidthBrush, setTool, handleToolClick }
