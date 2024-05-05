@@ -1,7 +1,7 @@
 import Brush from "@/app/ts/class/brush";
 import PaintHistory from "@/app/ts/class/history";
-import undo from "./undo";
-import redo from "./redo";
+import undo from "./historyManagement/undo";
+import redo from "./historyManagement/redo";
 import { SetStateAction } from "react";
 import { Dispatch } from "react";
 

@@ -1,4 +1,4 @@
-import ActionHistory from "./class/history";
+import ActionHistory from "../class/history";
 
 export default function historyAddNewActionBreak(history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>) {
   history.append({

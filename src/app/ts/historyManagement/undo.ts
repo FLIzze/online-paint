@@ -1,6 +1,6 @@
-import clearCanvas from "./clearCanvas";
-import ActionHistory from "./class/history";
-import drawPixelsFromUndoStack from "./drawPixelsFromUndoStack";
+import clearCanvas from "../clear/clearCanvas";
+import ActionHistory from "../class/history";
+import drawPixelsFromUndoStack from "../draw/drawPixelsFromUndoStack";
 
 export default function undo(history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>) {
     let linesCount = 1;

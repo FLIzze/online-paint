@@ -1,7 +1,7 @@
 import appendHistory from "./historyAddNewActionBreak";
-import clearCanvas from "./clearCanvas";
+import clearCanvas from "../clear/clearCanvas";
 import ActionHistory from "@/app/ts/class/history";
-import drawPixelsFromUndoStack from "./drawPixelsFromUndoStack";
+import drawPixelsFromUndoStack from "../draw/drawPixelsFromUndoStack";
 
 export default function redo(history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>) {
     if (history.redoStack.length == 0) {
@@ -22,7 +22,9 @@ export default function redo(history: ActionHistory, setHistory: React.Dispatch<
     clearCanvas();
 
     for (const action of history.undoStack) {
-        drawPixelsFromUndoStack(action);
+        if (action.from.x != 0) {
+            drawPixelsFromUndoStack(action);
+        }
     }
 
     appendHistory(history, setHistory);

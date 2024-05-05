@@ -1,5 +1,5 @@
-import Brush from './class/brush';
-import ActionHistory from './class/history';
+import ActionHistory from '../class/history';
+import Brush from '../class/brush';
 
 export default function pixelsDraw(draw: Brush, lastPosition: { x: number, y: number }, setLastPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number; }>>, history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>) {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement;

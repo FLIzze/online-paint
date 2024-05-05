@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, Dispatch } from "react"; 
-import Brush from "@/app/ts/class/brush";
-import undo from "@/app/ts/undo";
-import utils from "../../src/app/ts/utils";
 import { SetStateAction } from "react";
-import clearCanvas from "@/app/ts/clearCanvas";
+import Brush from "@/app/ts/class/brush";
+import utils from "@/app/ts/utils";
+import clearCanvas from "@/app/ts/clear/clearCanvas";
 import ActionHistory from "@/app/ts/class/history";
-import redo from "@/app/ts/redo";
+import clearHistory from "@/app/ts/clear/clearHistory";
+import undo from "@/app/ts/historyManagement/undo";
+import redo from "@/app/ts/historyManagement/redo";
 const { setColor, setWidthBrush, setTool, handleToolClick } = utils;
 
 interface UtilsProps {
@@ -37,6 +38,7 @@ export default function Utils({ data, setDraw, history, setHistory, draw, lastPo
                 setTool('bucket', setDraw);
             } else if (e.key == 'Delete') {
                 clearCanvas();
+                clearHistory(setHistory);
             } else if (e.key == 'u') {
                 undo(history, setHistory);
             } else if (e.key == 'r') {
@@ -61,7 +63,7 @@ export default function Utils({ data, setDraw, history, setHistory, draw, lastPo
             <p>y : {data.cursorPos.y}</p>
             <button
                 className="bg-black text-white"
-                onClick={() => clearCanvas()}>
+                onClick={() => { clearCanvas(); clearHistory(setHistory); }}>
                 Clear
             </button>
             <div className="flex">
@@ -77,7 +79,7 @@ export default function Utils({ data, setDraw, history, setHistory, draw, lastPo
             </div>
             <input
                 type="number"
-                onChange={(e) => setWidthBrush(Number(e.target), setDraw)}
+                onChange={(e) => setWidthBrush(Number(e.target.value), setDraw)}
                 placeholder={data.brushSize.toString()}
             />
             <div className="flex align-middle">

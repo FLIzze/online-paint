@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Brush from "./class/brush"
 import ActionHistory from "./class/history";
-import historyAddNewActionBreak from "./historyAddNewActionBreak";
+import historyAddNewActionBreak from "./historyManagement/historyAddNewActionBreak";
 
 export default function useMouseHandlers() {
   const [leftClick, setLeftClick] = useState(false);
