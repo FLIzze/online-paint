@@ -7,17 +7,12 @@ export default function Colors({ data, setDraw }: ColorInterface) {
 
     return (
         <div>
-            <p>x : {data.cursorPos.x}</p>
-            <p>y : {data.cursorPos.y}</p>
-            <div className="flex">
+            <div className="grid grid-cols-3 gap-0">
                 {colors.map((color, index) => (
-                    <div
-                        key={index}
-                        className="flex flex-col"
-                    >
+                    <div key={index}>
                         <button
                             style={{ backgroundColor: color }}
-                            className="w-10 h-10 my-2"
+                            className="w-7 h-7 my-2"
                             onClick={() => setColor(colors[index], setDraw)}>
                         </button>
                     </div>
@@ -27,7 +22,7 @@ export default function Colors({ data, setDraw }: ColorInterface) {
                 type="number"
                 onChange={(e) => setWidthBrush(Number(e.target.value), setDraw)}
                 placeholder={data.brushSize.toString()}
-                className="w-14 outline-none border border-black text-center"
+                className="w-14 outline-none border border-black text-center p-1"
             />
         </div>
     )
