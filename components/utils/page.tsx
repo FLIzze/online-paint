@@ -1,27 +1,30 @@
-"use client";
-
-import { useEffect, useState } from "react"; 
+import { useEffect, useState } from "react";
 import clearCanvas from "@/app/ts/clear/clearCanvas";
 import clearHistory from "@/app/ts/clear/clearHistory";
 import undo from "@/app/ts/historyManagement/undo";
 import redo from "@/app/ts/historyManagement/redo";
-import setColor from "@/app/ts/utils/setColor";
 import setTool from "@/app/ts/utils/setTool";
-import setWidthBrush from "@/app/ts/utils/setWidthBrush";
 import handleToolClick from "@/app/ts/utils/handleToolClick";
-import UtilsProps from "@/app/ts/interface/utilsProps";
+import UtilsInterface from "@/app/ts/interface/utils";
 
-export default function Utils({ data, setDraw, history, setHistory }: UtilsProps) {
-    const colors = ['red', 'blue', 'green', 'yellow', 'black', 'white'];
-    const utils = ['brush', 'eraser', 'bucket', 'undo', 'redo', 'zoom-in',  'zoom-out', 'logs', 'clear'];
+export default function Utils({ setDraw, setHistory, history }: UtilsInterface) {
+    const utils = ['brush', 'eraser', 'bucket'];
+    const [usedTool, setUsedTool] = useState<string>('brush');
+
+    function setUsedToolState(tool: string) {
+        setUsedTool(tool);
+    }
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key == 'e') {
+                setUsedToolState('eraser');
                 setTool('eraser', setDraw);
             } else if (e.key == 'b') {
+                setUsedToolState('brush');
                 setTool('brush', setDraw);
             } else if (e.key == 'f') {
+                setUsedToolState('bucket');
                 setTool('bucket', setDraw);
             } else if (e.key == 'Delete') {
                 clearCanvas();
@@ -41,38 +44,41 @@ export default function Utils({ data, setDraw, history, setHistory }: UtilsProps
     }, [history]);
 
     return (
-        <div className="absolute top-0 border border-black p-2 m-8">
-            <p>x : {data.cursorPos.x}</p>
-            <p>y : {data.cursorPos.y}</p>
-            <div className="flex">
-                {colors.map((color, index) => (
-                    <div key={index}>
-                        <button
-                            style={{ backgroundColor: color }}
-                            className="w-14 h-14"
-                            onClick={() => setColor(colors[index], setDraw)}>
-                        </button>
-                    </div>
-                ))}
-            </div>
-            <input
-                type="number"
-                onChange={(e) => setWidthBrush(Number(e.target.value), setDraw)}
-                placeholder={data.brushSize.toString()}
-            />
-            <div className="flex align-middle">
+        <div>
+            <p className="w-full mb-1">Outils</p>
+            <div className="grid grid-cols-3 gap-2">
                 {utils.map((util, index) => (
                     <div key={index}>
-                        <button
-                            className="mr-10"
-                            onClick={() => handleToolClick(util, setDraw, setHistory, history)}>
-                            <img
-                                src={`/${util}.png`}
-                                alt={util}
-                                className="w-7 h-7"
-                                title={`${util} [${util[0]}]`}
-                            />
-                        </button>
+                        {usedTool == util ? (
+                            <div>
+                                <button
+                                    onClick={() => {
+                                        handleToolClick(util, setDraw, setHistory, history);
+                                    }}>
+                                    <img
+                                        src={`/${util}.png`}
+                                        alt={util}
+                                        className="w-8 h-8 p-1 bg-slate-200 transition-all rounded-lg border border-black"
+                                        title={`${util} [${util[0]}]`}
+                                    />
+                                </button>
+                            </div>
+                        ) : (
+                            <div>
+                                <button
+                                    onClick={() => {
+                                        handleToolClick(util, setDraw, setHistory, history);
+                                        setUsedToolState(util);
+                                    }}>
+                                    <img
+                                        src={`/${util}.png`}
+                                        alt={util}
+                                        className="w-8 h-8 p-1 hover:bg-slate-200 transition-all rounded-lg border border-transparent"
+                                        title={`${util} [${util[0]}]`}
+                                    />
+                                </button>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>

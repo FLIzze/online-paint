@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import Utils from "../../components/utils/page";
 import useMouseHandlers from "./ts/mouseMoveEvents";
 import pixelsDraw from "./ts/draw/drawPixels";
+import SideNavBar from "../../components/sideNavbar/page";
 
 export default function Home() {
-  const width = 800;
+  const width = 1200;
   const height = 800;
 
   const { handleMouseMove, handleMouseDown, handleMouseUp, leftClick, lastPosition, draw, setDraw, setLastPosition, history, setHistory } = useMouseHandlers();
@@ -24,7 +24,7 @@ export default function Home() {
         style={{ cursor: `url(${draw.toolImg}) 0 32, auto` }}
       >
         <canvas
-          className="border border-black"
+          className="border border-black bg-white shadow-lg"
           id="canvas"
           width={width}
           height={height}
@@ -33,7 +33,7 @@ export default function Home() {
           onMouseUp={(e) => handleMouseUp(e)}>
         </canvas>
       </div>
-      <Utils data={draw} setDraw={setDraw} history={history} setHistory={setHistory} draw={draw} lastPosition={lastPosition} setLastPosition={setLastPosition}/>
+      <SideNavBar data={draw} setDraw={setDraw} history={history} setHistory={setHistory}/>
     </div>
   );
 }

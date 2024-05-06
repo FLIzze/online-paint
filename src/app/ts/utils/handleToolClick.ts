@@ -6,7 +6,6 @@ import clearCanvas from "../clear/clearCanvas";
 import clearHistory from "../clear/clearHistory";
 import { SetStateAction } from "react";
 import setTool from "./setTool";
-import zoom from "./zoom";
 
 export default function handleToolClick(util: string, setDraw: React.Dispatch<SetStateAction<Brush>>, setHistory: React.Dispatch<SetStateAction<PaintHistory>>, history: PaintHistory) {
     switch (util) {
@@ -31,12 +30,6 @@ export default function handleToolClick(util: string, setDraw: React.Dispatch<Se
             break;
         case 'logs':
             console.log(history);
-            break;
-        case 'zoom-in':
-            zoom('in');
-            break;
-        case 'zoom-out':
-            zoom('out');
             break;
     }
 }
