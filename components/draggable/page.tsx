@@ -4,20 +4,8 @@ export default function Draggable({ children, name, posX, posY }: { children: Re
     const [position, setPosition] = useState({ x: posX, y: posY });
     const [isDragging, setIsDragging] = useState(false);
     const initialClickRef = useRef({ offsetX: 0, offsetY: 0 });
-
+    
     useEffect(() => {
-        const handleMouseMove = (e: any) => {
-            if (isDragging) {
-                const offsetX = e.clientX - initialClickRef.current.offsetX;
-                const offsetY = e.clientY - initialClickRef.current.offsetY;
-                setPosition({ x: offsetX, y: offsetY });
-            }
-        };
-
-        const handleMouseUp = () => {
-            setIsDragging(false);
-        };
-
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
 
@@ -27,7 +15,19 @@ export default function Draggable({ children, name, posX, posY }: { children: Re
         };
     }, [isDragging]);
 
-    const handleMouseDown = (e: any) => {
+    function handleMouseMove(e: MouseEvent) {
+        if (isDragging) {
+            const offsetX = e.clientX - initialClickRef.current.offsetX;
+            const offsetY = e.clientY - initialClickRef.current.offsetY;
+            setPosition({ x: offsetX, y: offsetY });
+        }
+    };
+
+    function handleMouseUp() {
+        setIsDragging(false);
+    };
+
+    function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
         e.preventDefault();
         setIsDragging(true);
         const boundingRect = e.currentTarget.getBoundingClientRect();
@@ -35,7 +35,7 @@ export default function Draggable({ children, name, posX, posY }: { children: Re
         const offsetY = e.clientY - boundingRect.top;
         initialClickRef.current = { offsetX, offsetY };
     };
-
+    
     return (
         <div
             style={{ position: 'absolute', left: position.x, top: position.y, cursor: 'move' }}

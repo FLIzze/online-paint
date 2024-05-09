@@ -46,7 +46,7 @@ export default function Utils({ setDraw, setHistory, history }: UtilsInterface) 
 
     return (
         <Draggable name='Tools' posX={100} posY={100}>
-            <div className="grid grid-cols-3 gap-x-2">
+            <div className="flex">
                 {utils.map((util, index) => (
                     <div
                         key={index}
