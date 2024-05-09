@@ -6,4 +6,5 @@ export default interface UtilsInterface {
     setDraw: Dispatch<SetStateAction<Brush>>; 
     history: ActionHistory;
     setHistory: Dispatch<SetStateAction<ActionHistory>>;
+    name: string;
 }

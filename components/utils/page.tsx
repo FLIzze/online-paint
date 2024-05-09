@@ -6,6 +6,7 @@ import redo from "@/app/ts/historyManagement/redo";
 import setTool from "@/app/ts/utils/setTool";
 import handleToolClick from "@/app/ts/utils/handleToolClick";
 import UtilsInterface from "@/app/ts/interface/utils";
+import Draggable from "../draggable/page";
 
 export default function Utils({ setDraw, setHistory, history }: UtilsInterface) {
     const utils = ['brush', 'eraser', 'bucket'];
@@ -44,11 +45,12 @@ export default function Utils({ setDraw, setHistory, history }: UtilsInterface) 
     }, [history]);
 
     return (
-        <div>
-            <p className="w-full mb-1">Outils</p>
-            <div className="grid grid-cols-3 gap-2">
+        <Draggable name='Tools' posX={100} posY={100}>
+            <div className="grid grid-cols-3 gap-2 bg-white pt-2">
                 {utils.map((util, index) => (
-                    <div key={index}>
+                    <div
+                        key={index}
+                        className="px-2">
                         {usedTool == util ? (
                             <div>
                                 <button
@@ -58,7 +60,7 @@ export default function Utils({ setDraw, setHistory, history }: UtilsInterface) 
                                     <img
                                         src={`/${util}.png`}
                                         alt={util}
-                                        className="w-8 h-8 p-1 bg-slate-200 transition-all rounded-lg border border-black"
+                                        className="w-8 h-8 p-1 bg-slate-200 transition-all rounded-sm border border-black"
                                         title={`${util} [${util[0]}]`}
                                     />
                                 </button>
@@ -82,6 +84,6 @@ export default function Utils({ setDraw, setHistory, history }: UtilsInterface) 
                     </div>
                 ))}
             </div>
-        </div>
+        </Draggable>
     )
 }

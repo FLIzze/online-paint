@@ -6,7 +6,7 @@ import historyAddNewActionBreak from "./historyManagement/historyAddNewActionBre
 export default function useMouseHandlers() {
   const [leftClick, setLeftClick] = useState(false);
   const [lastPosition, setLastPosition] = useState({ x: 0, y: 0 });
-  const [draw, setDraw] = useState(new Brush('brush', 'red', 10, { x: 0, y: 0 }, '/brush.png'));
+  const [draw, setDraw] = useState(new Brush('brush', 'red', 5, { x: 0, y: 0 }, '/brush.png'));
   const [history, setHistory] = useState<ActionHistory>(new ActionHistory([], [], [], 0));
 
   useEffect(() => {
