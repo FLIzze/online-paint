@@ -2,6 +2,8 @@ export default function drawPixelsFromUndoStack(action: StackInterface) {
     const canvas = document.getElementById('canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
+    ctx.globalAlpha = action.opacity;
+
     ctx.beginPath();
     ctx.moveTo(action.from.x, action.from.y);
     ctx.lineTo(action.to.x, action.to.y);

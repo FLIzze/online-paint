@@ -7,7 +7,8 @@ export default function setColor(color: string, setDraw: React.Dispatch<React.Se
             color,
             prevDraw.brushSize,
             prevDraw.cursorPos,
-            prevDraw.toolImg
+            prevDraw.toolImg,
+            prevDraw.opacity
         )
     );
 }

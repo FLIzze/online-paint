@@ -41,8 +41,8 @@ export default function Draggable({ children, name, posX, posY }: { children: Re
             style={{ position: 'absolute', left: position.x, top: position.y, cursor: 'move' }}
             onMouseDown={handleMouseDown}
         >
-            <div className='border border-black'>
-                <p className='bg-slate-300 text-sm p-1'>{name}</p>
+            <div className='border border-black pb-2 bg-white'>
+                <p className='bg-slate-300 text-sm p-1 mb-2'>{name}</p>
                 {children}
             </div>
         </div>

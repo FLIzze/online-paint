@@ -7,7 +7,8 @@ export default function setWidthBrush(brushWidth: number, setDraw: React.Dispatc
             prevDraw.color,
             brushWidth,
             prevDraw.cursorPos,
-            prevDraw.toolImg
+            prevDraw.toolImg,
+            prevDraw.opacity
         )
     );
 }

@@ -5,6 +5,8 @@ export default function pixelsDraw(draw: Brush, lastPosition: { x: number, y: nu
   const canvas = document.getElementById('canvas') as HTMLCanvasElement;
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
+  ctx.globalAlpha = draw.opacity
+
   ctx.beginPath();
   ctx.moveTo(lastPosition.x, lastPosition.y);
   ctx.lineTo(draw.cursorPos.x, draw.cursorPos.y);
@@ -35,7 +37,8 @@ export default function pixelsDraw(draw: Brush, lastPosition: { x: number, y: nu
     color: draw.color,
     brushSize: draw.brushSize,
     from: lastPosition,
-    to: draw.cursorPos
+    to: draw.cursorPos,
+    opacity: draw.opacity
   });
   
   setHistory(prevHistory => new ActionHistory(

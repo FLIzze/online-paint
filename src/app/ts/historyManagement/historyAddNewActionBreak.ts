@@ -6,7 +6,8 @@ export default function historyAddNewActionBreak(history: ActionHistory, setHist
     color: 'new line',
     brushSize: 0,
     from: { x: 0, y: 0 },
-    to: { x: 0, y: 0 }
+    to: { x: 0, y: 0 },
+    opacity: 0
   });
 
   setHistory(prevHistory => new ActionHistory(

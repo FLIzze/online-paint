@@ -8,7 +8,8 @@ export default function setTool(tool: string, setDraw: React.Dispatch<React.SetS
                 prevDraw.color,
                 prevDraw.brushSize,
                 prevDraw.cursorPos,
-                '/brush.png'
+                '/brush.png',
+                prevDraw.opacity
             )
         )
     } else if (tool == 'eraser') {
@@ -18,7 +19,8 @@ export default function setTool(tool: string, setDraw: React.Dispatch<React.SetS
                 prevDraw.color,
                 prevDraw.brushSize,
                 prevDraw.cursorPos,
-                '/eraser.png'
+                '/eraser.png',
+                prevDraw.opacity
             )
         );
     } else if (tool == 'bucket') {
@@ -28,7 +30,8 @@ export default function setTool(tool: string, setDraw: React.Dispatch<React.SetS
                 prevDraw.color,
                 prevDraw.brushSize,
                 prevDraw.cursorPos,
-                '/bucket.png'
+                '/bucket.png',
+                prevDraw.opacity
             )
         );
     }

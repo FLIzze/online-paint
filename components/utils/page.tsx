@@ -9,7 +9,7 @@ import UtilsInterface from "@/app/ts/interface/utils";
 import Draggable from "../draggable/page";
 
 export default function Utils({ setDraw, setHistory, history }: UtilsInterface) {
-    const utils = ['brush', 'eraser', 'bucket'];
+    const utils = ['brush', 'eraser', 'fill'];
     const [usedTool, setUsedTool] = useState<string>('brush');
 
     function setUsedToolState(tool: string) {
@@ -25,7 +25,7 @@ export default function Utils({ setDraw, setHistory, history }: UtilsInterface) 
                 setUsedToolState('brush');
                 setTool('brush', setDraw);
             } else if (e.key == 'f') {
-                setUsedToolState('bucket');
+                setUsedToolState('fill');
                 setTool('bucket', setDraw);
             } else if (e.key == 'Delete') {
                 clearCanvas();
@@ -46,7 +46,7 @@ export default function Utils({ setDraw, setHistory, history }: UtilsInterface) 
 
     return (
         <Draggable name='Tools' posX={100} posY={100}>
-            <div className="grid grid-cols-3 gap-2 bg-white pt-2">
+            <div className="grid grid-cols-3 gap-x-2">
                 {utils.map((util, index) => (
                     <div
                         key={index}
@@ -75,7 +75,7 @@ export default function Utils({ setDraw, setHistory, history }: UtilsInterface) 
                                     <img
                                         src={`/${util}.png`}
                                         alt={util}
-                                        className="w-8 h-8 p-1 hover:bg-slate-200 transition-all rounded-lg border border-transparent"
+                                        className="w-8 h-8 p-1 hover:bg-slate-200 transition-all rounded-sm border border-transparent"
                                         title={`${util} [${util[0]}]`}
                                     />
                                 </button>

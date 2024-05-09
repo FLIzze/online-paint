@@ -3,19 +3,18 @@ import setColor from "@/app/ts/utils/setColor";
 import Draggable from "../draggable/page";
 
 export default function Colors({ data, setDraw }: ColorInterface) {
-    const colors = ['red', 'blue', 'green', 'yellow', 'black', 'white'];
+    const colors = ['#000000', '#808080', '#C0C0C0', '#FFFFFF', '#FF0000', '#800000', '#FFFF00', '#808000', '#00FF00', '#008000', '#00FFFF', '#008080', '#0000FF', '#000080', '#FF00FF', '#800080', '#FFA07A', '#FF4500', '#FFD700', '#FF8C00']
 
     return (
-        <Draggable name="Palette" posX={500} posY={500}>
-            <div className="grid grid-cols-3 px-1 bg-white pt-2">
+        <Draggable name="Palette" posX={300} posY={500}>
+            <div className="grid grid-cols-10 px-2 bg-white">
                 {colors.map((color, index) => (
-                    <div key={index}>
-                        <button
-                            style={{ backgroundColor: color }}
-                            className="w-7 h-7 my-2"
-                            onClick={() => setColor(colors[index], setDraw)}>
-                        </button>
-                    </div>
+                    <button
+                        key={index}
+                        style={{ backgroundColor: color }}
+                        className="w-5 h-5"
+                        onClick={() => setColor(colors[index], setDraw)}>
+                    </button>
                 ))}
             </div>
         </Draggable>
