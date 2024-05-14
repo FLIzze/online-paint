@@ -1,27 +1,27 @@
 import Brush from "../class/brush";
 
-export default function setTool(tool: string, setDraw: React.Dispatch<React.SetStateAction<Brush>>) {
-    if (tool == 'brush') {
+export default function setEraser(draw: Brush, setDraw: React.Dispatch<React.SetStateAction<Brush>>) {
+    if (draw.eraser == false) {
         setDraw(
             prevDraw => new Brush(
-                'brush',
-                prevDraw.eraser,
+                prevDraw.tool,
+                true,
                 prevDraw.color,
                 prevDraw.brushSize,
                 prevDraw.cursorPos,
-                '/brush.png',
+                prevDraw.toolImg,
                 prevDraw.opacity
             )
-        )
-    } else if (tool == 'fill') {
+        );
+    } else {
         setDraw(
             prevDraw => new Brush(
-                'fill',
-                prevDraw.eraser,
+                prevDraw.tool,
+                false,
                 prevDraw.color,
                 prevDraw.brushSize,
                 prevDraw.cursorPos,
-                '/fill.png',
+                prevDraw.toolImg,
                 prevDraw.opacity
             )
         );

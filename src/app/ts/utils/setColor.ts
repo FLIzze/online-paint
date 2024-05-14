@@ -4,6 +4,7 @@ export default function setColor(color: string, setDraw: React.Dispatch<React.Se
     setDraw(
         prevDraw => new Brush(
             prevDraw.tool,
+            prevDraw.eraser,
             color,
             prevDraw.brushSize,
             prevDraw.cursorPos,

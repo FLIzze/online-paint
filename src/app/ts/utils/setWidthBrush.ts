@@ -4,6 +4,7 @@ export default function setWidthBrush(brushWidth: number, setDraw: React.Dispatc
     setDraw(
         prevDraw => new Brush(
             prevDraw.tool,
+            prevDraw.eraser,
             prevDraw.color,
             brushWidth,
             prevDraw.cursorPos,

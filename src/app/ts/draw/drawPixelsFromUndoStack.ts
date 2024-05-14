@@ -12,17 +12,17 @@ export default function drawPixelsFromUndoStack(action: StackInterface) {
     ctx.lineCap = 'round';
     ctx.strokeStyle = action.color;
 
-    if (action.tool == 'brush') {
-        ctx.globalCompositeOperation = 'source-over';
-        ctx.strokeStyle = action.color;
-    } else if (action.tool == 'eraser') {
+    if (action.eraser == true) {
         ctx.globalCompositeOperation = 'destination-out';
         ctx.strokeStyle = 'rgba(0,0,0,1)';
-    } else if (action.tool == 'fill') {
+      } else if (action.tool == 'brush') {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.strokeStyle = action.color;
+      } else if (action.tool == 'fill') {
         ctx.globalCompositeOperation = 'source-over';
         ctx.fillStyle = action.color;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
+      }
 
     ctx.stroke();
     ctx.closePath();

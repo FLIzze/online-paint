@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <div className="h-screen overflow-hidden">
-      <NavBar setDraw={setDraw} history={history} setHistory={setHistory} />
+      <NavBar setDraw={setDraw} draw={draw} history={history} setHistory={setHistory}/>
       <div
         className="w-full justify-center flex h-full items-center"
         style={{ cursor: `url(${draw.toolImg}) 0 32, auto` }}
@@ -36,8 +36,8 @@ export default function Home() {
           onMouseUp={(e) => handleMouseUp(e)}>
         </canvas>
       </div>
-      <Utils setDraw={setDraw} setHistory={setHistory} history={history} name="Tools" />
-      <Colors data={draw} setDraw={setDraw} />
+      <Utils draw={draw} setDraw={setDraw} setHistory={setHistory} history={history} name="Tools" />
+      <Colors setDraw={setDraw} />
     </div>
   );
 }

@@ -6,7 +6,7 @@ export default function pixelsDraw(draw: Brush, lastPosition: { x: number, y: nu
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   ctx.globalAlpha = draw.opacity
-
+  
   ctx.beginPath();
   ctx.moveTo(lastPosition.x, lastPosition.y);
   ctx.lineTo(draw.cursorPos.x, draw.cursorPos.y);
@@ -15,12 +15,12 @@ export default function pixelsDraw(draw: Brush, lastPosition: { x: number, y: nu
   ctx.lineCap = 'round';
   ctx.strokeStyle = draw.color;
 
-  if (draw.tool == 'brush') {
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.strokeStyle = draw.color;
-  } else if (draw.tool == 'eraser') {
+  if (draw.eraser == true) {
     ctx.globalCompositeOperation = 'destination-out';
     ctx.strokeStyle = 'rgba(0,0,0,1)';
+  } else if (draw.tool == 'brush') {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.strokeStyle = draw.color;
   } else if (draw.tool == 'fill') {
     ctx.globalCompositeOperation = 'source-over';
     ctx.fillStyle = draw.color;
@@ -34,6 +34,7 @@ export default function pixelsDraw(draw: Brush, lastPosition: { x: number, y: nu
 
   history.append({
     tool: draw.tool,
+    eraser: draw.eraser,
     color: draw.color,
     brushSize: draw.brushSize,
     from: lastPosition,
