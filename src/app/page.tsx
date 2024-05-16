@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import useMouseHandlers from "./ts/mouseEvents";
 import pixelsDraw from "./ts/draw/drawPixels";
 import NavBar from "../../components/navBar/page";
@@ -14,14 +14,15 @@ export default function Home() {
   const baseSize = { baseWidht: 900, baseHeight: 800 };
   const [{ width, height }, setCanvasSize] = useState({ width: baseSize.baseWidht, height: baseSize.baseHeight });
   const [zoom, setZoom] = useState(1);
+  const [translate, setTranslate] = useState(0);
   const { handleMouseMove, handleMouseDown, handleMouseUp, leftClick, lastPosition, draw, setDraw, setLastPosition, history, setHistory } = useMouseHandlers(zoom);
 
   useEffect(() => {
-    window.addEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom));
+    window.addEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom, translate, setTranslate));
     drawPixelsAfterZoom(history.undoStack, zoom);
 
     return () => {
-      window.removeEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom));
+      window.removeEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom, translate, setTranslate));
     };
 
   }, [zoom]);
@@ -37,12 +38,9 @@ export default function Home() {
       className="h-screen overflow-hidden bg-[#808080]"
       style={{ cursor: `url(${draw.toolImg}) 0 32, auto` }}
     >
-      <Utils setDraw={setDraw} history={history} />
-      <Colors setDraw={setDraw} />
-      <NavBar setDraw={setDraw} draw={draw} history={history} setHistory={setHistory} zoom={zoom} />
       <Draggable name="None" posX={300} posY={300}>
         <canvas
-          className="border border-black bg-white shadow-lg"
+          className="border border-black bg-white shadow-lg z-0 absolute"
           id="canvas"
           width={width}
           height={height}
@@ -53,6 +51,10 @@ export default function Home() {
         >
         </canvas>
       </Draggable>
+      
+      <Utils setDraw={setDraw} history={history} />
+      <Colors setDraw={setDraw} />
+      <NavBar setDraw={setDraw} draw={draw} history={history} setHistory={setHistory} zoom={zoom} />
     </div>
   );
 }
