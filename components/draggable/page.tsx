@@ -27,7 +27,7 @@ export default function Draggable({ children, name, posX, posY }: { children: Re
         setIsDragging(false);
     };
 
-    function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
+    function handleMouseDown(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
         setIsDragging(true);
         const boundingRect = e.currentTarget.getBoundingClientRect();
@@ -37,7 +37,7 @@ export default function Draggable({ children, name, posX, posY }: { children: Re
     };
     
     return (
-        <div
+        <button
             style={{ left: position.x, top: position.y }}
             onMouseDown={handleMouseDown}
             className='absolute cursor-move'
@@ -46,6 +46,6 @@ export default function Draggable({ children, name, posX, posY }: { children: Re
                 <p className='bg-[#494949] text-sm p-1 mb-2 text-white'>{name}</p>
                 {children}
             </div>
-        </div>
+        </button>
     );
 };
