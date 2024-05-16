@@ -1,6 +1,7 @@
 import undo from "@/app/ts/historyManagement/undo"
 import redo from "@/app/ts/historyManagement/redo"
 import ActionHistory from "@/app/ts/class/history"
+import Image from "next/image"
 
 export default function Undo({ history, setHistory }: { history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>> }) {
     return (
@@ -9,10 +10,12 @@ export default function Undo({ history, setHistory }: { history: ActionHistory, 
                 <div>
                     <button
                         onClick={() => undo(history, setHistory)}>
-                        <img
+                        <Image
                             src="/undo.png"
                             alt="undo"
-                            className="w-4 h-4 mr-4"
+                            className="mr-4"
+                            height={24}
+                            width={24}
                         />
                     </button>
                 </div>
@@ -20,10 +23,12 @@ export default function Undo({ history, setHistory }: { history: ActionHistory, 
                 <div>
                     <button
                         onClick={() => undo(history, setHistory)}>
-                        <img
+                        <Image
                             src="/undo.png"
                             alt="undo"
-                            className="w-4 h-4 mr-4 grayscale"
+                            className="mr-4 grayscale"
+                            height={24}
+                            width={24}
                         />
                     </button>
                 </div>
@@ -33,10 +38,12 @@ export default function Undo({ history, setHistory }: { history: ActionHistory, 
                 <div>
                     <button
                         onClick={() => redo(history, setHistory)}>
-                        <img
+                        <Image
                             src="/redo.png"
                             alt="redo"
-                            className="w-4 h-4 mr-4"
+                            className="mr-4"
+                            height={24}
+                            width={24}
                         />
                     </button>
                 </div>
@@ -44,10 +51,12 @@ export default function Undo({ history, setHistory }: { history: ActionHistory, 
                 <div>
                     <button
                         onClick={() => redo(history, setHistory)}>
-                        <img
+                        <Image
                             src="/redo.png"
                             alt="redo"
-                            className="w-4 h-4 mr-4 grayscale"
+                            className="mr-4 grayscale"
+                            height={24}
+                            width={24}
                         />
                     </button>
                 </div>
