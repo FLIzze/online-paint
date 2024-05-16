@@ -12,7 +12,7 @@ export default function drawPixelsFromUndoStack(action: StackInterface) {
     ctx.lineCap = 'round';
     ctx.strokeStyle = action.color;
 
-    if (action.eraser == true) {
+    if (action.eraser) {
         ctx.globalCompositeOperation = 'destination-out';
         ctx.strokeStyle = 'rgba(0,0,0,1)';
       } else if (action.tool == 'brush') {

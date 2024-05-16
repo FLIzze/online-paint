@@ -10,7 +10,15 @@ import undo from "@/app/ts/historyManagement/undo";
 import redo from "@/app/ts/historyManagement/redo";
 import clearCanvas from "@/app/ts/clear/clearCanvas";
 
-export default function NavBar({ setDraw, draw, history, setHistory, zoom }: { setDraw: Dispatch<SetStateAction<Brush>>, draw: Brush, history: any, setHistory: Dispatch<SetStateAction<any>>, zoom: number }) {
+interface NavBarProps {
+    setDraw: Dispatch<SetStateAction<Brush>>;
+    draw: Brush;
+    history: any;
+    setHistory: Dispatch<SetStateAction<any>>;
+    zoom: number;
+}
+
+export default function NavBar({ setDraw, draw, history, setHistory, zoom }: Readonly<NavBarProps>) {
     const [usedTool, setUsedTool] = useState(false);
 
     useEffect(() => {

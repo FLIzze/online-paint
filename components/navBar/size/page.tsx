@@ -2,7 +2,11 @@ import Brush from "@/app/ts/class/brush";
 import setWidthBrush from "@/app/ts/utils/setWidthBrush";
 import { useState, useRef, Dispatch, SetStateAction } from "react";
 
-export default function Size({ setDraw }: { setDraw: Dispatch<SetStateAction<Brush>>}) {
+interface SizeProps {
+    setDraw: Dispatch<SetStateAction<Brush>>;
+}
+
+export default function Size({ setDraw }: Readonly<SizeProps>) {
     const [pixels, setPixels] = useState<number>(10);
 
     const isMouseDown = useRef(false);

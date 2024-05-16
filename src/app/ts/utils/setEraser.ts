@@ -1,7 +1,7 @@
 import Brush from "../class/brush";
 
 export default function setEraser(draw: Brush, setDraw: React.Dispatch<React.SetStateAction<Brush>>) {
-    if (draw.eraser == false) {
+    if (!draw.eraser) {
         setDraw(
             prevDraw => new Brush(
                 prevDraw.tool,

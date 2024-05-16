@@ -17,9 +17,9 @@ export default function Home() {
 
   useEffect(() => {
     window.addEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom));
-    
+
     drawPixelsAfterZoom(history.undoStack);
-    
+
     return () => {
       window.removeEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom));
     };
@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <div className="h-screen overflow-hidden bg-[#808080]">
-      <Utils draw={draw} setDraw={setDraw} setHistory={setHistory} history={history} name="Tools" />
+      <Utils setDraw={setDraw} history={history} />
       <Colors setDraw={setDraw} />
       <NavBar setDraw={setDraw} draw={draw} history={history} setHistory={setHistory} zoom={zoom} />
       <div

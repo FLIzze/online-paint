@@ -1,7 +1,14 @@
 import Brush from "@/app/ts/class/brush";
 import setTool from "@/app/ts/utils/setTool";
 
-export default function BasicTools({ setDraw, setUsedTool, usedTool, tool }: { setDraw: React.Dispatch<React.SetStateAction<Brush>>, setUsedTool: React.Dispatch<React.SetStateAction<string>>, usedTool: string, tool: string }) {
+interface BasicToolsProps {
+    setDraw: React.Dispatch<React.SetStateAction<Brush>>;
+    setUsedTool: React.Dispatch<React.SetStateAction<string>>;
+    usedTool: string;
+    tool: string;
+}
+
+export default function BasicTools({ setDraw, setUsedTool, usedTool, tool }: Readonly<BasicToolsProps>) {
     return (
         <div>
             {usedTool == tool ? (

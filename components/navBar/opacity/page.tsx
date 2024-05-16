@@ -2,7 +2,11 @@ import Brush from "@/app/ts/class/brush";
 import setOpacity from "@/app/ts/utils/setOpacity";
 import { useState, useRef, Dispatch, SetStateAction } from "react";
 
-export default function Opacity({ setDraw }: { setDraw: Dispatch<SetStateAction<Brush>> }) {
+interface OpacityProps {
+    setDraw: Dispatch<SetStateAction<Brush>>;
+}
+
+export default function Opacity({ setDraw }: Readonly<OpacityProps>) {
     const [pourcentage, setPourcentage] = useState<number>(100);
 
     const isMouseDown = useRef(false);

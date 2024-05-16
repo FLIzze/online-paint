@@ -15,7 +15,7 @@ export default function pixelsDraw(draw: Brush, lastPosition: { x: number, y: nu
   ctx.lineCap = 'round';
   ctx.strokeStyle = draw.color;
 
-  if (draw.eraser == true) {
+  if (draw.eraser) {
     ctx.globalCompositeOperation = 'destination-out';
     ctx.strokeStyle = 'rgba(0,0,0,1)';
   } else if (draw.tool == 'brush') {

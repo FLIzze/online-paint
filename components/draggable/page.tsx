@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-export default function Draggable({ children, name, posX, posY }: { children: React.ReactNode, name: string, posX: number, posY: number }): JSX.Element {
+interface DraggableProps {
+    children: React.ReactNode;
+    name: string;
+    posX: number;
+    posY: number;
+}
+
+export default function Draggable({ children, name, posX, posY }: Readonly<DraggableProps>): JSX.Element {
     const [position, setPosition] = useState({ x: posX, y: posY });
     const [isDragging, setIsDragging] = useState(false);
     const initialClickRef = useRef({ offsetX: 0, offsetY: 0 });

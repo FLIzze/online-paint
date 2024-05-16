@@ -2,7 +2,14 @@ import setEraser from "@/app/ts/utils/setEraser";
 import Brush from "@/app/ts/class/brush";
 import Image from "next/image";
 
-export default function Eraser({ draw, setDraw, usedTool, setUsedTool }: { draw: Brush, setDraw: React.Dispatch<React.SetStateAction<Brush>>, setUsedTool: React.Dispatch<React.SetStateAction<boolean>>, usedTool: boolean }) {
+interface EraserProps {
+    draw: Brush;
+    setDraw: React.Dispatch<React.SetStateAction<Brush>>;
+    setUsedTool: React.Dispatch<React.SetStateAction<boolean>>;
+    usedTool: boolean;
+}
+
+export default function Eraser({ draw, setDraw, usedTool, setUsedTool }: Readonly<EraserProps>) {
     return (
         <div>
             {usedTool == true ? (

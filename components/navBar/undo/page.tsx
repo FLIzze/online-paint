@@ -3,7 +3,12 @@ import redo from "@/app/ts/historyManagement/redo"
 import ActionHistory from "@/app/ts/class/history"
 import Image from "next/image"
 
-export default function Undo({ history, setHistory }: { history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>> }) {
+interface UndoProps {
+    history: ActionHistory;
+    setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>;
+}
+
+export default function Undo({ history, setHistory }: Readonly<UndoProps>) {
     return (
         <div className="h-full items-center flex">
             {history.undoStack.length > 0 ? (

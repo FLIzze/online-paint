@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import setTool from "@/app/ts/utils/setTool";
-import UtilsInterface from "@/app/ts/interface/utils";
 import Draggable from "../draggable/page";
 import BasicTools from "./basicsTool/page";
+import ActionHistory from "@/app/ts/class/history";
+import Brush from "@/app/ts/class/brush";
 
-export default function Utils({ draw, setDraw, setHistory, history }: UtilsInterface) {
+interface UtilsProps {
+    setDraw: React.Dispatch<React.SetStateAction<Brush>>;
+    history: ActionHistory;
+}
+
+export default function Utils({ setDraw, history }: Readonly<UtilsProps>) {
     const [usedTool, setUsedTool] = useState<string>('brush');
 
     useEffect(() => {
