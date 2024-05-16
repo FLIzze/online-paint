@@ -17,7 +17,7 @@ export default function BasicTools({ setDraw, setUsedTool, usedTool, tool }: { s
                     />
                 </div>
             ) : (
-                <div
+                <button
                     onClick={() => {
                         setTool(tool, setDraw);
                         setUsedTool(tool);
@@ -31,7 +31,7 @@ export default function BasicTools({ setDraw, setUsedTool, usedTool, tool }: { s
                         width={32}
                         height={32}
                     />
-                </div>
+                </button>
             )}
         </div>
     )
