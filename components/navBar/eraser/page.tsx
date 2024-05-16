@@ -12,7 +12,7 @@ interface EraserProps {
 export default function Eraser({ draw, setDraw, usedTool, setUsedTool }: Readonly<EraserProps>) {
     return (
         <div>
-            {usedTool == true ? (
+            {usedTool ? (
                 <button
                     onClick={() => {
                         setUsedTool(false);

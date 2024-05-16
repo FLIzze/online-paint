@@ -1,5 +1,6 @@
 import Brush from "@/app/ts/class/brush";
 import setTool from "@/app/ts/utils/setTool";
+import Image from "next/image";
 
 interface BasicToolsProps {
     setDraw: React.Dispatch<React.SetStateAction<Brush>>;
@@ -9,14 +10,18 @@ interface BasicToolsProps {
 }
 
 export default function BasicTools({ setDraw, setUsedTool, usedTool, tool }: Readonly<BasicToolsProps>) {
+    const imgUrl = `/${tool}.png`;
+
     return (
         <div>
             {usedTool == tool ? (
-                <img
-                    src={`/${tool}.png`}
+                <Image
+                    src={imgUrl}
                     alt={tool}
-                    className="h-8 w-8 p-1 rounded-sm bg-[#647c91] border border-black"
+                    className="p-1 rounded-sm bg-[#647c91] border border-black"
                     title={tool}
+                    width={32}
+                    height={32}
                 />
             ) : (
                 <button
@@ -25,11 +30,13 @@ export default function BasicTools({ setDraw, setUsedTool, usedTool, tool }: Rea
                         setUsedTool(tool);
                     }}
                 >
-                    <img
-                        src={`/${tool}.png`}
+                    <Image
+                        src={imgUrl}
                         alt={tool}
-                        className="h-8 w-8 p-1 rounded-sm border border-transparent hover:border-black"
+                        className="p-1 rounded-sm border border-transparent hover:border-black"
                         title={tool}
+                        width={32}
+                        height={32}
                     />
                 </button>
             )}

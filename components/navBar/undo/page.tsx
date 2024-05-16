@@ -12,59 +12,51 @@ export default function Undo({ history, setHistory }: Readonly<UndoProps>) {
     return (
         <div className="h-full items-center flex">
             {history.undoStack.length > 0 ? (
-                <div>
-                    <button
-                        onClick={() => undo(history, setHistory)}>
-                        <Image
-                            src="/undo.png"
-                            alt="undo"
-                            className="mr-4"
-                            height={24}
-                            width={24}
-                        />
-                    </button>
-                </div>
+                <button
+                    onClick={() => undo(history, setHistory)}>
+                    <Image
+                        src="/undo.png"
+                        alt="undo"
+                        className="mr-4"
+                        height={24}
+                        width={24}
+                    />
+                </button>
             ) : (
-                <div>
-                    <button
-                        onClick={() => undo(history, setHistory)}>
-                        <Image
-                            src="/undo.png"
-                            alt="undo"
-                            className="mr-4 grayscale"
-                            height={24}
-                            width={24}
-                        />
-                    </button>
-                </div>
+                <button
+                    onClick={() => undo(history, setHistory)}>
+                    <Image
+                        src="/undo.png"
+                        alt="undo"
+                        className="mr-4 grayscale"
+                        height={24}
+                        width={24}
+                    />
+                </button>
             )}
 
             {history.redoStack.length > 0 ? (
-                <div>
-                    <button
-                        onClick={() => redo(history, setHistory)}>
-                        <Image
-                            src="/redo.png"
-                            alt="redo"
-                            className="mr-4"
-                            height={24}
-                            width={24}
-                        />
-                    </button>
-                </div>
+                <button
+                    onClick={() => redo(history, setHistory)}>
+                    <Image
+                        src="/redo.png"
+                        alt="redo"
+                        className="mr-4"
+                        height={24}
+                        width={24}
+                    />
+                </button>
             ) : (
-                <div>
-                    <button
-                        onClick={() => redo(history, setHistory)}>
-                        <Image
-                            src="/redo.png"
-                            alt="redo"
-                            className="mr-4 grayscale"
-                            height={24}
-                            width={24}
-                        />
-                    </button>
-                </div>
+                <button
+                    onClick={() => redo(history, setHistory)}>
+                    <Image
+                        src="/redo.png"
+                        alt="redo"
+                        className="mr-4 grayscale"
+                        height={24}
+                        width={24}
+                    />
+                </button>
             )}
         </div>
     )

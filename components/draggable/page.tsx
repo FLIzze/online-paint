@@ -7,7 +7,7 @@ interface DraggableProps {
     posY: number;
 }
 
-export default function Draggable({ children, name, posX, posY }: Readonly<DraggableProps>): JSX.Element {
+export default function Draggable({ children, name, posX, posY }: Readonly<DraggableProps>) {
     const [position, setPosition] = useState({ x: posX, y: posY });
     const [isDragging, setIsDragging] = useState(false);
     const initialClickRef = useRef({ offsetX: 0, offsetY: 0 });
@@ -34,7 +34,7 @@ export default function Draggable({ children, name, posX, posY }: Readonly<Dragg
         setIsDragging(false);
     };
 
-    function handleMouseDown(e: React.MouseEvent<HTMLButtonElement>) {
+    function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
         e.preventDefault();
         setIsDragging(true);
         const boundingRect = e.currentTarget.getBoundingClientRect();
@@ -44,7 +44,7 @@ export default function Draggable({ children, name, posX, posY }: Readonly<Dragg
     };
     
     return (
-        <button
+        <div
             style={{ left: position.x, top: position.y }}
             onMouseDown={handleMouseDown}
             className='absolute cursor-move'
@@ -53,6 +53,6 @@ export default function Draggable({ children, name, posX, posY }: Readonly<Dragg
                 <p className='bg-[#494949] text-sm p-1 mb-2 text-white'>{name}</p>
                 {children}
             </div>
-        </button>
+        </div>
     );
 };
