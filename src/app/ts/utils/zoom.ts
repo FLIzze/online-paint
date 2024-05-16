@@ -3,8 +3,6 @@ export default function handleWheel(e: WheelEvent,
     baseSize: { baseWidht: number; baseHeight: number; },
     zoom: number,
     setZoom: React.Dispatch<React.SetStateAction<number>>,
-    translate: number,
-    setTranslate: React.Dispatch<React.SetStateAction<number>>
 ) {
     e.preventDefault();
 
@@ -18,11 +16,4 @@ export default function handleWheel(e: WheelEvent,
 
     setZoom(zoom);
     setCanvasSize({ width: baseSize.baseWidht * zoom, height: baseSize.baseHeight * zoom });
-
-    const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-
-    setTranslate(zoom / 2);
-
-    ctx.translate(-translate * 100, -translate * 100);
 }

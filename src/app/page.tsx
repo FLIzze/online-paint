@@ -14,15 +14,14 @@ export default function Home() {
   const baseSize = { baseWidht: 900, baseHeight: 800 };
   const [{ width, height }, setCanvasSize] = useState({ width: baseSize.baseWidht, height: baseSize.baseHeight });
   const [zoom, setZoom] = useState(1);
-  const [translate, setTranslate] = useState(0);
   const { handleMouseMove, handleMouseDown, handleMouseUp, leftClick, lastPosition, draw, setDraw, setLastPosition, history, setHistory } = useMouseHandlers(zoom);
 
   useEffect(() => {
-    window.addEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom, translate, setTranslate));
+    window.addEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom));
     drawPixelsAfterZoom(history.undoStack, zoom);
 
     return () => {
-      window.removeEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom, translate, setTranslate));
+      window.removeEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom));
     };
 
   }, [zoom]);
@@ -40,7 +39,7 @@ export default function Home() {
     >
       <Draggable name="None" posX={300} posY={300}>
         <canvas
-          className="border border-black bg-white shadow-lg z-0 absolute"
+          className="border border-black bg-white shadow-lg z-0"
           id="canvas"
           width={width}
           height={height}
@@ -48,8 +47,7 @@ export default function Home() {
           onMouseDown={handleMouseDown}
           onMouseUp={(e) => handleMouseUp(e)}
           style={{ cursor: `url(${draw.toolImg}) 0 32, auto` }}
-        >
-        </canvas>
+        />
       </Draggable>
       
       <Utils setDraw={setDraw} history={history} />

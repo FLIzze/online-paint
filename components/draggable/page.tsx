@@ -37,6 +37,7 @@ export default function Draggable({ children, name, posX, posY }: Readonly<Dragg
     function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
         if (name == 'None' && e.button != 1) { return; }
         e.preventDefault();
+        
         setIsDragging(true);
         const boundingRect = e.currentTarget.getBoundingClientRect();
         const offsetX = e.clientX - boundingRect.left;
