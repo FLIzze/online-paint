@@ -7,7 +7,7 @@ export default function Size({ setDraw }: { setDraw: Dispatch<SetStateAction<Bru
 
     const isMouseDown = useRef(false);
 
-    function getPixels(e: React.MouseEvent<HTMLDivElement>) {
+    function getPixels(e: React.MouseEvent<HTMLButtonElement>) {
         const div = e.currentTarget;
         const clickPositionInPixels = e.clientX - div.getBoundingClientRect().left;
         const widthOfDivInPixels = div.offsetWidth;
@@ -16,7 +16,7 @@ export default function Size({ setDraw }: { setDraw: Dispatch<SetStateAction<Bru
         setWidthBrush(clickPositionAsPercentage * 10, setDraw);
     }
 
-    function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
+    function handleMouseDown(e: React.MouseEvent<HTMLButtonElement>) {
         isMouseDown.current = true;
         getPixels(e);
     }
@@ -25,14 +25,14 @@ export default function Size({ setDraw }: { setDraw: Dispatch<SetStateAction<Bru
         isMouseDown.current = false;
     }
 
-    function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    function handleMouseMove(e: React.MouseEvent<HTMLButtonElement>) {
         if (isMouseDown.current) {
             getPixels(e);
         }
     }
 
     return (
-        <div
+        <button
             className="border border-black h-7 w-32  justify-center cursor-pointer rounded-sm bg-[#383838]"
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
@@ -45,6 +45,6 @@ export default function Size({ setDraw }: { setDraw: Dispatch<SetStateAction<Bru
             >
                 <p className="select-none overflow-visible whitespace-nowrap">Size: {(pixels * 10).toFixed(0) + 'px'}</p>
             </div>
-        </div>
+        </button>
     )
 }

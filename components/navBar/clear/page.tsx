@@ -2,10 +2,10 @@ import clearCanvas from "@/app/ts/clear/clearCanvas";
 
 export default function Clear() {
     return (
-        <div onClick={
+        <button onClick={
             clearCanvas
         }>
             <p>Clear</p>
-        </div>
+        </button>
     )
 }

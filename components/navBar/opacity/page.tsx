@@ -7,7 +7,7 @@ export default function Opacity({ setDraw }: { setDraw: Dispatch<SetStateAction<
 
     const isMouseDown = useRef(false);
 
-    function getPourcentage(e: React.MouseEvent<HTMLDivElement>) {
+    function getPourcentage(e: React.MouseEvent<HTMLButtonElement>) {
         const div = e.currentTarget;
         const clickPositionInPixels = e.clientX - div.getBoundingClientRect().left;
         const widthOfDivInPixels = div.offsetWidth;
@@ -16,7 +16,7 @@ export default function Opacity({ setDraw }: { setDraw: Dispatch<SetStateAction<
         setOpacity(clickPositionAsPercentage / 100, setDraw);
     }
 
-    function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
+    function handleMouseDown(e: React.MouseEvent<HTMLButtonElement>) {
         isMouseDown.current = true;
         getPourcentage(e);
     }
@@ -25,14 +25,14 @@ export default function Opacity({ setDraw }: { setDraw: Dispatch<SetStateAction<
         isMouseDown.current = false;
     }
 
-    function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    function handleMouseMove(e: React.MouseEvent<HTMLButtonElement>) {
         if (isMouseDown.current) {
             getPourcentage(e);
         }
     }
 
     return (
-        <div
+        <button
             className="border border-black h-7 w-32  justify-center cursor-pointer rounded-sm bg-[#383838]"
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
@@ -45,6 +45,6 @@ export default function Opacity({ setDraw }: { setDraw: Dispatch<SetStateAction<
             >
                 <p className="select-none overflow-visible whitespace-nowrap">Opacity: {pourcentage.toFixed(0) + '%'}</p>
             </div>
-        </div>
+        </button>
     )
 }
