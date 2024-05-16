@@ -7,7 +7,7 @@ export default function undo(history: ActionHistory, setHistory: React.Dispatch<
 
     clearCanvas();
 
-    if (history.undoStack.length == 0 || history.actionCount == 1 ) {
+    if (history.undoStack.length == 0 || history.actionCount == 1) {
         console.log('nothing to undo.');
         return;
     }

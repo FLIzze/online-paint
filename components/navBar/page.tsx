@@ -9,6 +9,7 @@ import Clear from "./clear/page"
 import undo from "@/app/ts/historyManagement/undo";
 import redo from "@/app/ts/historyManagement/redo";
 import clearCanvas from "@/app/ts/clear/clearCanvas";
+import clearHistory from "@/app/ts/clear/clearHistory";
 
 interface NavBarProps {
     setDraw: Dispatch<SetStateAction<Brush>>;
@@ -36,6 +37,7 @@ export default function NavBar({ setDraw, draw, history, setHistory, zoom }: Rea
                 redo(history, setHistory, zoom);
             } else if (e.key == 'Delete') {
                 clearCanvas();
+                clearHistory(setHistory);
             }
         };
 
@@ -44,7 +46,7 @@ export default function NavBar({ setDraw, draw, history, setHistory, zoom }: Rea
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [draw, history]);
+    }, [draw, history, zoom]);
 
     return (
         <div className="w-full flex border-black border-b flex-wrap gap-5 pl-8 bg-[#494949] h-10 text-sm items-center cursor-pointer text-white sticky">
@@ -52,7 +54,7 @@ export default function NavBar({ setDraw, draw, history, setHistory, zoom }: Rea
             <Opacity setDraw={setDraw} />
             <Size setDraw={setDraw} />
             <Eraser draw={draw} setDraw={setDraw} usedTool={usedTool} setUsedTool={setUsedTool} />
-            <Clear />
+            <Clear setHistory={setHistory}/>
             <p>zoom: {(zoom * 100).toFixed(0)}%</p>
         </div>
     )

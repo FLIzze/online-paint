@@ -37,8 +37,6 @@ export default function useMouseHandlers(zoom: number) {
   function handleMouseDown(e: React.MouseEvent<HTMLCanvasElement>) {
     if (e.button != 0) return;
     const rect = (e.target as HTMLElement).getBoundingClientRect();
-    console.log(zoom);
-
     setLastPosition({ x: (e.clientX - rect.left) / zoom, y: (e.clientY - rect.top) / zoom });
     setLeftClick(true);
   }
