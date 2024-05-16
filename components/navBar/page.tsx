@@ -50,7 +50,7 @@ export default function NavBar({ setDraw, draw, history, setHistory, zoom }: Rea
 
     return (
         <div className="w-full flex border-black border-b flex-wrap gap-5 pl-8 bg-[#494949] h-10 text-sm items-center cursor-pointer text-white sticky">
-            <Undo history={history} setHistory={setHistory} />
+            <Undo history={history} setHistory={setHistory} zoom={zoom} />
             <Opacity setDraw={setDraw} />
             <Size setDraw={setDraw} />
             <Eraser draw={draw} setDraw={setDraw} usedTool={usedTool} setUsedTool={setUsedTool} />

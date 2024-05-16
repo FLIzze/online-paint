@@ -6,14 +6,15 @@ import Image from "next/image"
 interface UndoProps {
     history: ActionHistory;
     setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>;
+    zoom: number;
 }
 
-export default function Undo({ history, setHistory }: Readonly<UndoProps>) {
+export default function Undo({ history, setHistory, zoom }: Readonly<UndoProps>) {
     return (
         <div className="h-full items-center flex">
             {history.undoStack.length > 0 ? (
                 <button
-                    onClick={() => undo(history, setHistory)}>
+                    onClick={() => undo(history, setHistory, zoom)}>
                     <Image
                         src="/undo.png"
                         alt="undo"
@@ -24,7 +25,7 @@ export default function Undo({ history, setHistory }: Readonly<UndoProps>) {
                 </button>
             ) : (
                 <button
-                    onClick={() => undo(history, setHistory)}>
+                    onClick={() => undo(history, setHistory, zoom)}>
                     <Image
                         src="/undo.png"
                         alt="undo"
@@ -37,7 +38,7 @@ export default function Undo({ history, setHistory }: Readonly<UndoProps>) {
 
             {history.redoStack.length > 0 ? (
                 <button
-                    onClick={() => redo(history, setHistory)}>
+                    onClick={() => redo(history, setHistory, zoom)}>
                     <Image
                         src="/redo.png"
                         alt="redo"
@@ -48,7 +49,7 @@ export default function Undo({ history, setHistory }: Readonly<UndoProps>) {
                 </button>
             ) : (
                 <button
-                    onClick={() => redo(history, setHistory)}>
+                    onClick={() => redo(history, setHistory, zoom)}>
                     <Image
                         src="/redo.png"
                         alt="redo"
