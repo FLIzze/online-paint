@@ -49,6 +49,7 @@ export default function Draggable({ children, name, posX, posY }: Readonly<Dragg
             onMouseDown={handleMouseDown}
             className='absolute cursor-move'
             role='button'
+            tabIndex={0}
         >
             <div className='border border-black pb-2 bg-[#494949]'>
                 <p className='bg-[#494949] text-sm p-1 mb-2 text-white'>{name}</p>
