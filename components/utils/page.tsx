@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
-import clearCanvas from "@/app/ts/clear/clearCanvas";
-import clearHistory from "@/app/ts/clear/clearHistory";
-import undo from "@/app/ts/historyManagement/undo";
-import redo from "@/app/ts/historyManagement/redo";
 import setTool from "@/app/ts/utils/setTool";
 import UtilsInterface from "@/app/ts/interface/utils";
 import Draggable from "../draggable/page";
 import BasicTools from "./basicsTool/page";
-import setEraser from "@/app/ts/utils/setEraser";
 
 export default function Utils({ draw, setDraw, setHistory, history }: UtilsInterface) {
     const [usedTool, setUsedTool] = useState<string>('brush');
