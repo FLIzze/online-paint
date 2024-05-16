@@ -13,7 +13,7 @@ export default function Size({ setDraw }: { setDraw: Dispatch<SetStateAction<Bru
         const widthOfDivInPixels = div.offsetWidth;
         const clickPositionAsPercentage = (clickPositionInPixels / widthOfDivInPixels) * 100;
         setPixels(clickPositionAsPercentage);
-        setWidthBrush(clickPositionAsPercentage, setDraw);
+        setWidthBrush(clickPositionAsPercentage * 10, setDraw);
     }
 
     function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
@@ -33,17 +33,17 @@ export default function Size({ setDraw }: { setDraw: Dispatch<SetStateAction<Bru
 
     return (
         <div
-            className="border border-black h-7 w-32  justify-center cursor-pointer"
+            className="border border-black h-7 w-32  justify-center cursor-pointer rounded-sm bg-[#383838]"
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseUp}
         >
             <div
-                className="bg-blue-200 h-full items-center flex pl-2 text-xs"
+                className="bg-[#53728e] h-full items-center flex pl-2 text-xs"
                 style={{ width: `${pixels}%` }}
             >
-                <p className="select-none overflow-visible whitespace-nowrap">Size: {pixels.toFixed(0) + 'pixels'}</p>
+                <p className="select-none overflow-visible whitespace-nowrap">Size: {(pixels * 10).toFixed(0) + 'px'}</p>
             </div>
         </div>
     )

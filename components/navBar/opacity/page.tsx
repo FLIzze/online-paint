@@ -33,14 +33,14 @@ export default function Opacity({ setDraw }: { setDraw: Dispatch<SetStateAction<
 
     return (
         <div
-            className="border border-black h-7 w-32  justify-center cursor-pointer"
+            className="border border-black h-7 w-32  justify-center cursor-pointer rounded-sm bg-[#383838]"
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseUp}
         >
             <div
-                className="bg-blue-200 h-full items-center flex pl-2 text-xs"
+                className="bg-[#53728e] h-full items-center flex pl-2 text-xs"
                 style={{ width: `${pourcentage}%` }}
             >
                 <p className="select-none overflow-visible whitespace-nowrap">Opacity: {pourcentage.toFixed(0) + '%'}</p>

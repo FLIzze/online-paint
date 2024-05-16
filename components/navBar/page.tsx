@@ -8,12 +8,12 @@ import setEraser from "@/app/ts/utils/setEraser";
 import Clear from "./clear/page"
 import undo from "@/app/ts/historyManagement/undo";
 import redo from "@/app/ts/historyManagement/redo";
+import clearCanvas from "@/app/ts/clear/clearCanvas";
 
-export default function NavBar({ setDraw, draw, history, setHistory }: { setDraw: Dispatch<SetStateAction<Brush>>, draw: Brush, history: any, setHistory: Dispatch<SetStateAction<any>>}) {
+export default function NavBar({ setDraw, draw, history, setHistory, zoom }: { setDraw: Dispatch<SetStateAction<Brush>>, draw: Brush, history: any, setHistory: Dispatch<SetStateAction<any>>, zoom: number }) {
     const [usedTool, setUsedTool] = useState(false);
 
     useEffect(() => {
-        console.log(history);
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key == 'e') {
                 setEraser(draw, setDraw);
@@ -26,6 +26,8 @@ export default function NavBar({ setDraw, draw, history, setHistory }: { setDraw
                 undo(history, setHistory);
             } else if (e.key == 'r') {
                 redo(history, setHistory);
+            } else if (e.key == 'Delete') {
+                clearCanvas();
             }
         };
 
@@ -37,12 +39,13 @@ export default function NavBar({ setDraw, draw, history, setHistory }: { setDraw
     }, [draw, history]);
 
     return (
-        <div className="w-full flex border-black border-b flex-wrap gap-5 pl-8 bg-white h-10 text-sm items-center">
+        <div className="w-full flex border-black border-b flex-wrap gap-5 pl-8 bg-[#494949] h-10 text-sm items-center cursor-pointer text-white sticky">
             <Undo history={history} setHistory={setHistory} />
             <Opacity setDraw={setDraw} />
             <Size setDraw={setDraw} />
             <Eraser draw={draw} setDraw={setDraw} usedTool={usedTool} setUsedTool={setUsedTool} />
             <Clear />
+            <p>zoom: {(zoom * 100).toFixed(0)}%</p>
         </div>
     )
 }

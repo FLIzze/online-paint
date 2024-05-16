@@ -10,7 +10,7 @@ export default function Eraser({ draw, setDraw, usedTool, setUsedTool }: { draw:
                     <img
                         src="eraser.png"
                         alt="eraser"
-                        className="h-8 w-8 p-1 rounded-sm transition-all bg-gray-500"
+                        className="h-8 w-8 p-1 rounded-sm bg-[#647c91] border border-black"
                         onClick={() => {
                             setUsedTool(false);
                             setEraser(draw, setDraw);
@@ -22,7 +22,7 @@ export default function Eraser({ draw, setDraw, usedTool, setUsedTool }: { draw:
                     <img
                         src="eraser.png"
                         alt="eraser"
-                        className="h-8 w-8 p-1 rounded-sm transition-all"
+                        className="h-8 w-8 p-1 rounded-sm border border-transparent hover:border-black"
                         onClick={() => {
                             setUsedTool(true);
                             setEraser(draw, setDraw);

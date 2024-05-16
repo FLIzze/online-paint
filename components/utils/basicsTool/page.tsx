@@ -9,7 +9,7 @@ export default function BasicTools({ setDraw, setUsedTool, usedTool, tool }: { s
                     <img
                         src={`/${tool}.png`}
                         alt={tool}
-                        className="h-8 w-8 bg-gray-500 p-1 rounded-sm transition-all"
+                        className="h-8 w-8 p-1 rounded-sm bg-[#647c91] border border-black"
                         title={tool}
                     />
                 </div>
@@ -18,7 +18,7 @@ export default function BasicTools({ setDraw, setUsedTool, usedTool, tool }: { s
                     <img
                         src={`/${tool}.png`}
                         alt={tool}
-                        className="h-8 w-8 p-1 rounded-sm transition-all"
+                        className="h-8 w-8 p-1 rounded-sm border border-transparent hover:border-black"
                         onClick={() => {
                             setTool(tool, setDraw);
                             setUsedTool(tool);

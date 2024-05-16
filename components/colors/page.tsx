@@ -7,7 +7,7 @@ export default function Colors({ setDraw }: ColorInterface) {
 
     return (
         <Draggable name="Palette" posX={300} posY={500}>
-            <div className="grid grid-cols-10 px-2 bg-white">
+            <div className="grid grid-cols-10 px-2">
                 {colors.map((color, index) => (
                     <button
                         key={index}

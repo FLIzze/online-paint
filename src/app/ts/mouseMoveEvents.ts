@@ -35,12 +35,14 @@ export default function useMouseHandlers() {
   }
 
   function handleMouseDown(e: React.MouseEvent<HTMLCanvasElement>) {
+    if (e.button != 0) return;
     const rect = (e.target as HTMLElement).getBoundingClientRect();
     setLastPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
     setLeftClick(true);
   }
   
   function handleMouseUp(e: React.MouseEvent<HTMLCanvasElement>) {
+    if (e.button != 0) return;
     if (e.target == document.getElementById('canvas')) {
       historyAddNewActionBreak(history, setHistory);
       setLeftClick(false);
