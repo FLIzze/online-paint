@@ -2,7 +2,7 @@ import clearCanvas from "../clear/clearCanvas";
 import ActionHistory from "../class/history";
 import drawPixelsFromUndoStack from "../draw/drawPixelsFromUndoStack";
 
-export default function undo(history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>) {
+export default function undo(history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>, zoom: number) {
     let linesCount = 1;
 
     clearCanvas();
@@ -25,7 +25,7 @@ export default function undo(history: ActionHistory, setHistory: React.Dispatch<
                 break;
             }
         } else {
-            drawPixelsFromUndoStack(action);
+            drawPixelsFromUndoStack(action, zoom);
         }
     }
 

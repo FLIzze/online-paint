@@ -31,9 +31,9 @@ export default function NavBar({ setDraw, draw, history, setHistory, zoom }: Rea
                     setUsedTool(true);
                 }
             } else if (e.key == 'u') {
-                undo(history, setHistory);
+                undo(history, setHistory, zoom);
             } else if (e.key == 'r') {
-                redo(history, setHistory);
+                redo(history, setHistory, zoom);
             } else if (e.key == 'Delete') {
                 clearCanvas();
             }

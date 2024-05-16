@@ -10,15 +10,15 @@ import handleWheel from "./ts/utils/zoom";
 import drawPixelsAfterZoom from "./ts/draw/drawAfterZoom";
 
 export default function Home() {
-  const { handleMouseMove, handleMouseDown, handleMouseUp, leftClick, lastPosition, draw, setDraw, setLastPosition, history, setHistory } = useMouseHandlers();
   const baseSize = { baseWidht: 900, baseHeight: 800 };
   const [{ width, height }, setCanvasSize] = useState({ width: baseSize.baseWidht, height: baseSize.baseHeight });
   const [zoom, setZoom] = useState(1);
+  const { handleMouseMove, handleMouseDown, handleMouseUp, leftClick, lastPosition, draw, setDraw, setLastPosition, history, setHistory } = useMouseHandlers(zoom);
 
   useEffect(() => {
     window.addEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom));
 
-    drawPixelsAfterZoom(history.undoStack);
+    drawPixelsAfterZoom(history.undoStack, zoom);
 
     return () => {
       window.removeEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom));
@@ -28,7 +28,7 @@ export default function Home() {
 
   useEffect(() => {
     if (leftClick) {
-      pixelsDraw(draw, lastPosition, setLastPosition, history, setHistory);
+      pixelsDraw(draw, lastPosition, setLastPosition, history, setHistory, zoom);
     }
   }, [draw]);
 

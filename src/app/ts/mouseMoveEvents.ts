@@ -3,7 +3,7 @@ import Brush from "./class/brush"
 import ActionHistory from "./class/history";
 import historyAddNewActionBreak from "./historyManagement/historyAddNewActionBreak";
 
-export default function useMouseHandlers() {
+export default function useMouseHandlers(zoom: number) {
   const [leftClick, setLeftClick] = useState(false);
   const [lastPosition, setLastPosition] = useState({ x: 0, y: 0 });
   const [draw, setDraw] = useState(new Brush('brush', false, 'red', 5, { x: 0, y: 0 }, '/brush.png', 1));
@@ -37,10 +37,12 @@ export default function useMouseHandlers() {
   function handleMouseDown(e: React.MouseEvent<HTMLCanvasElement>) {
     if (e.button != 0) return;
     const rect = (e.target as HTMLElement).getBoundingClientRect();
-    setLastPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    console.log(zoom);
+
+    setLastPosition({ x: (e.clientX - rect.left) / zoom, y: (e.clientY - rect.top) / zoom });
     setLeftClick(true);
   }
-  
+
   function handleMouseUp(e: React.MouseEvent<HTMLCanvasElement>) {
     if (e.button != 0) return;
     if (e.target == document.getElementById('canvas')) {

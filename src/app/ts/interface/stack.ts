@@ -5,5 +5,5 @@ interface StackInterface {
     brushSize: number,
     from: { x: number, y: number },
     to: { x: number, y: number },
-    opacity: number
+    opacity: number,
 }

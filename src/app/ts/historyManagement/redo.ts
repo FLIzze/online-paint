@@ -3,7 +3,7 @@ import clearCanvas from "../clear/clearCanvas";
 import ActionHistory from "@/app/ts/class/history";
 import drawPixelsFromUndoStack from "../draw/drawPixelsFromUndoStack";
 
-export default function redo(history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>) {
+export default function redo(history: ActionHistory, setHistory: React.Dispatch<React.SetStateAction<ActionHistory>>, zoom: number) {
     if (history.redoStack.length == 0) {
         console.log('nothing to redo.');
         return;
@@ -23,7 +23,7 @@ export default function redo(history: ActionHistory, setHistory: React.Dispatch<
 
     for (const action of history.undoStack) {
         if (action.from.x != 0) {
-            drawPixelsFromUndoStack(action);
+            drawPixelsFromUndoStack(action, zoom);
         }
     }
 
