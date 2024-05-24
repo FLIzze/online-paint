@@ -7,21 +7,18 @@ import NavBar from "../../components/navBar/page";
 import Utils from "../../components/utils/page";
 import Colors from "../../components/colors/page";
 import handleWheel from "./ts/utils/zoom";
-import drawPixelsAfterZoom from "./ts/draw/drawAfterZoom";
 import Draggable from "../../components/draggable/page";
 
 export default function Home() {
-  const baseSize = { baseWidht: 900, baseHeight: 800 };
-  const [{ width, height }, setCanvasSize] = useState({ width: baseSize.baseWidht, height: baseSize.baseHeight });
+  const size = { x: 800, y: 800 };
   const [zoom, setZoom] = useState(1);
   const { handleMouseMove, handleMouseDown, handleMouseUp, leftClick, lastPosition, draw, setDraw, setLastPosition, history, setHistory } = useMouseHandlers(zoom);
 
   useEffect(() => {
-    window.addEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom));
-    drawPixelsAfterZoom(history.undoStack, zoom);
+    window.addEventListener('wheel', (e) => handleWheel(e, zoom, setZoom));
 
     return () => {
-      window.removeEventListener('wheel', (e) => handleWheel(e, setCanvasSize, baseSize, zoom, setZoom));
+      window.removeEventListener('wheel', (e) => handleWheel(e, zoom, setZoom));
     };
 
   }, [zoom]);
@@ -37,19 +34,20 @@ export default function Home() {
       className="h-screen overflow-hidden bg-[#808080]"
       style={{ cursor: `url(${draw.toolImg}) 0 32, auto` }}
     >
-      <Draggable name="None" posX={300} posY={300}>
+      <Draggable name="None" posX={1920/2-(size.x/2)} posY={1080/2-(size.y/2)}>
         <canvas
           className="border border-black bg-white shadow-lg z-0"
           id="canvas"
-          width={width}
-          height={height}
+          width={size.x}
+          height={size.y}
           onMouseMove={handleMouseMove}
           onMouseDown={handleMouseDown}
           onMouseUp={(e) => handleMouseUp(e)}
-          style={{ cursor: `url(${draw.toolImg}) 0 32, auto` }}
+          style={{ cursor: `url(${draw.toolImg}) 0 32, auto`, transform: `scale(${zoom})` }}
+
         />
       </Draggable>
-      
+
       <Utils setDraw={setDraw} history={history} />
       <Colors setDraw={setDraw} />
       <NavBar setDraw={setDraw} draw={draw} history={history} setHistory={setHistory} zoom={zoom} />

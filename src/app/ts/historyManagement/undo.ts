@@ -25,7 +25,7 @@ export default function undo(history: ActionHistory, setHistory: React.Dispatch<
                 break;
             }
         } else {
-            drawPixelsFromUndoStack(action, zoom);
+            drawPixelsFromUndoStack(action);
         }
     }
 

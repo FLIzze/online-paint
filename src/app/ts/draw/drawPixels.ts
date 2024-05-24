@@ -8,7 +8,7 @@ export default function pixelsDraw(draw: Brush, lastPosition: { x: number, y: nu
   ctx.globalAlpha = draw.opacity;
 
   ctx.save();
-  ctx.scale(zoom, zoom);
+  // ctx.scale(zoom, zoom);
 
   const cursorPosCanvas = {
     x: draw.cursorPos.x / zoom,

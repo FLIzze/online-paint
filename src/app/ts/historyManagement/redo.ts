@@ -19,11 +19,11 @@ export default function redo(history: ActionHistory, setHistory: React.Dispatch<
         console.error(`error popping nmbPixelsInLineUndo ${e}`)
     }
 
-    clearCanvas(setHistory);
+    clearCanvas();
 
     for (const action of history.undoStack) {
         if (action.from.x != 0) {
-            drawPixelsFromUndoStack(action, zoom);
+            drawPixelsFromUndoStack(action);
         }
     }
 

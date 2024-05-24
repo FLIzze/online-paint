@@ -1,6 +1,4 @@
 export default function handleWheel(e: WheelEvent,
-    setCanvasSize: React.Dispatch<React.SetStateAction<{ width: number; height: number; }>>,
-    baseSize: { baseWidht: number; baseHeight: number; },
     zoom: number,
     setZoom: React.Dispatch<React.SetStateAction<number>>,
 ) {
@@ -15,5 +13,4 @@ export default function handleWheel(e: WheelEvent,
     if (zoom < 0.2 || zoom > 5) { return; }
 
     setZoom(zoom);
-    setCanvasSize({ width: baseSize.baseWidht * zoom, height: baseSize.baseHeight * zoom });
 }

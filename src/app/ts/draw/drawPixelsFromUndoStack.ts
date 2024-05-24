@@ -1,11 +1,10 @@
-export default function drawPixelsFromUndoStack(action: StackInterface, zoom: number) {
+export default function drawPixelsFromUndoStack(action: StackInterface) {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement;
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
   ctx.globalAlpha = action.opacity;
 
   ctx.save();
-  ctx.scale(zoom, zoom);
 
   ctx.beginPath();
   ctx.moveTo(action.from.x, action.from.y);
