@@ -31,26 +31,29 @@ export default function Home() {
 
   return (
     <div
-      className="h-screen overflow-hidden bg-[#808080]"
+      className="h-screen bg-[#808080]"
       style={{ cursor: `url(${draw.toolImg}) 0 32, auto` }}
     >
-      <Draggable name="None" posX={1920/2-(size.x/2)} posY={1080/2-(size.y/2)}>
-        <canvas
-          className="border border-black bg-white shadow-lg z-0"
-          id="canvas"
-          width={size.x}
-          height={size.y}
-          onMouseMove={handleMouseMove}
-          onMouseDown={handleMouseDown}
-          onMouseUp={(e) => handleMouseUp(e)}
-          style={{ cursor: `url(${draw.toolImg}) 0 32, auto`, transform: `scale(${zoom})` }}
-
-        />
-      </Draggable>
+      
+      <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
+        <NavBar setDraw={setDraw} draw={draw} history={history} setHistory={setHistory} zoom={zoom} />
+        <Draggable name="None" posX={1920 / 2 - (size.x / 2)} posY={1080 / 2 - (size.y / 2)} >
+          <canvas
+            className="border border-black bg-white shadow-lg z-0"
+            id="canvas"
+            width={size.x}
+            height={size.y}
+            onMouseMove={handleMouseMove}
+            onMouseDown={handleMouseDown}
+            onMouseUp={(e) => handleMouseUp(e)}
+            style={{ cursor: `url(${draw.toolImg}) 0 32, auto`, transform: `scale(${zoom})` }}
+          />
+        </Draggable>
+      </div>
 
       <Utils setDraw={setDraw} history={history} />
       <Colors setDraw={setDraw} />
-      <NavBar setDraw={setDraw} draw={draw} history={history} setHistory={setHistory} zoom={zoom} />
+
     </div>
   );
 }
